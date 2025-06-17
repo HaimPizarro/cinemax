@@ -9,7 +9,7 @@ import { EstrategiaComponent } from './pages/estrategia/estrategia.component';
 // import { PerfilComponent }  from './pages/perfil/perfil.component';
 // import { AdminComponent }   from './pages/admin/admin.component';
 import { RegistroComponent } from './pages/registro/registro.component';
-// import { LoginComponent }   from './pages/login/login.component';
+import { LoginComponent }   from './pages/login/login.component';
 
 export const routes: Routes = [
   { path: '',         component: HomeComponent },
@@ -20,8 +20,7 @@ export const routes: Routes = [
   // { path: 'perfil',   component: PerfilComponent },
   // { path: 'admin',    component: AdminComponent },
   { path: 'registro', component: RegistroComponent },
-  // { path: 'login',    component: LoginComponent },
+  { path: 'login',    component: LoginComponent },
 
-  // Ruta comodín (opcional): redirige todo lo que no exista:
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];

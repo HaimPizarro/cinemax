@@ -1,0 +1,59 @@
+<main class="login-container flex-grow-1">
+  <div class="login-card row g-0">
+    <!-- Columna izquierda (puedes personalizarla) -->
+    <div class="col-lg-5 login-left">
+      <h2 class="mb-3">🎬 Bienvenido a CineMax</h2>
+      <p class="mb-4">Accede con tu cuenta para disfrutar de la mejor experiencia cinematográfica.</p>
+    </div>
+
+    <!-- Columna derecha: Formulario -->
+    <div class="col-lg-7 login-form">
+      <h3 class="mb-4 text-center">Iniciar Sesión</h3>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+        <div class="mb-3">
+          <label for="email" class="form-label">Correo Electrónico</label>
+          <input type="email"
+                 formControlName="email"
+                 class="form-control"
+                 [class.is-invalid]="emailInv"
+                 id="email"
+                 placeholder="tu@email.com"
+                 required />
+          <div class="invalid-feedback">
+            Ingresa un correo válido.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña</label>
+          <input type="password"
+                 formControlName="password"
+                 class="form-control"
+                 [class.is-invalid]="passwordInv"
+                 id="password"
+                 placeholder="••••••••"
+                 required />
+          <div class="invalid-feedback">
+            Ingresa tu contraseña.
+          </div>
+        </div>
+
+        <div class="mb-3 form-check">
+          <input type="checkbox"
+                 formControlName="recordar"
+                 class="form-check-input"
+                 id="recordar" />
+          <label class="form-check-label" for="recordar">Recordar mis datos</label>
+        </div>
+
+        <button type="submit" class="btn btn-brand w-100 py-2 mb-3">Iniciar Sesión</button>
+
+        <div *ngIf="errorMsg" class="alert alert-danger mt-2 text-center">{{ errorMsg }}</div>
+      </form>
+      <div class="text-center mt-3">
+        <p>¿No tienes cuenta? <a href="/registro">Regístrate aquí</a></p>
+        <a href="/recuperar" class="small">¿Olvidaste tu contraseña?</a>
+      </div>
+    </div>
+  </div>
+</main>
