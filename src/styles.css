@@ -1,1 +1,108 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --bs-brand-dark: #212529;
+  --bs-body-bg:    #f8f9fa;
+  --bs-sombra:     0 2px 5px rgba(0, 0, 0, 0.10);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--bs-body-bg);
+  color: #333;
+  line-height: 1.6;
+}
+
+.hero-drama {
+  position: relative;
+  background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20211011/pngtree-modern-liquid-gradient-colors-abstract-background-design-template-for-brochures-flyers-image_910976.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: white;
+}
+.hero-drama::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+  z-index: 1;
+}
+.hero-drama .container {
+  position: relative;
+  z-index: 2;
+}
+
+.card {
+  transition: box-shadow 0.3s ease;
+}
+.card:hover {
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.badge-discount {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 2;
+}
+
+.s-price {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--bs-brand-dark) !important;
+}
+
+.btn-brand {
+  background-color: var(--bs-brand-dark);
+  border-color: var(--bs-brand-dark);
+  color: #fff;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.btn-brand:hover {
+  background-color: #343a40;
+  border-color:    #343a40;
+  color:           var(--bs-body-bg);
+}
+.btn-brand:focus,
+.btn-brand:active {
+  background-color: #2e3236;
+  border-color:    #2e3236;
+  color:           var(--bs-body-bg);
+}
+.btn-brand:disabled {
+  background-color: var(--bs-brand-dark);
+  border-color:    var(--bs-brand-dark);
+  opacity:         0.65;
+}
+
+@media (max-width: 992px) {
+  .navbar-collapse .navbar-nav {
+    margin: auto;
+    align-items: center;
+  }
+}
+
+@keyframes fade-up {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.fade-up {
+  animation: fade-up 0.6s ease-out;
+}
+
+@media (max-width: 576px) {
+  .hero-drama h1 {
+    font-size: 1.8rem;
+  }
+}
