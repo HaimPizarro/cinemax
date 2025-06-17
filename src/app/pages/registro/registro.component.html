@@ -1,0 +1,79 @@
+<header class="py-5 bg-primary hero-drama text-white text-center shadow-sm">
+  <div class="container">
+    <h1 class="fw-bold display-5">Crea tu cuenta en CineMax</h1>
+    <p class="lead">Regístrate para empezar a disfrutar</p>
+  </div>
+</header>
+
+<main class="container flex-grow-1 py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-sm border-0 rounded-3">
+        <div class="card-body p-4">
+          <form [formGroup]="registroForm" (ngSubmit)="registrar()" novalidate>
+            <!-- Email -->
+            <div class="mb-3 form-floating">
+              <input type="email" id="correo" class="form-control"
+                formControlName="correo"
+                placeholder="correo@ejemplo.com"
+                [class.is-invalid]="emailInv"
+                required>
+              <label for="correo">Correo electrónico *</label>
+              <div class="invalid-feedback">Ingresa un correo válido.</div>
+            </div>
+
+            <div class="mb-3 form-floating">
+              <input type="text" id="nombre" class="form-control"
+                formControlName="nombre"
+                placeholder="Juan Pérez"
+                [class.is-invalid]="nombreInv"
+                required>
+              <label for="nombre">Nombre completo *</label>
+              <div class="invalid-feedback">Ingresa tu nombre completo.</div>
+            </div>
+
+            <div class="mb-3 form-floating">
+              <input type="password" id="clave" class="form-control"
+                formControlName="clave"
+                placeholder="Contraseña"
+                [class.is-invalid]="claveInv"
+                required>
+              <label for="clave">Contraseña *</label>
+              <div class="form-text">6–18 caracteres, 1 mayúscula y 1 número.</div>
+              <div class="invalid-feedback">La contraseña no cumple requisitos.</div>
+            </div>
+
+            <div class="mb-3 form-floating">
+              <input type="password" id="clave2" class="form-control"
+                formControlName="clave2"
+                placeholder="Repetir contraseña"
+                [class.is-invalid]="clave2Inv"
+                required>
+              <label for="clave2">Repetir contraseña *</label>
+              <div class="invalid-feedback">Las contraseñas no coinciden.</div>
+            </div>
+
+            <div class="mb-3 form-floating">
+              <input type="date" id="fechaNac" class="form-control"
+                formControlName="fechaNac"
+                [class.is-invalid]="fechaNacInv"
+                required>
+              <label for="fechaNac">Fecha de nacimiento *</label>
+              <div class="invalid-feedback">Debes ser mayor de 13 años.</div>
+            </div>
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary">
+                <i class="bi bi-person-plus"></i> Crear cuenta
+              </button>
+            </div>
+
+            <div *ngIf="formError" class="mt-3 text-center text-danger">
+              {{ formError }}
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

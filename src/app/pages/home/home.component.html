@@ -1,0 +1,78 @@
+<!-- ALERTA DE BIENVENIDA -->
+<div *ngIf="mostrarBienvenida" class="alert alert-success alert-dismissible fade show m-0">
+  <div class="container d-flex align-items-center">
+    <strong>¡Bienvenido/a!</strong>
+    <span class="ms-2">Has iniciado sesión correctamente.</span>
+  </div>
+</div>
+
+<!-- HEADER PRINCIPAL -->
+<header class="py-5 text-center hero-drama shadow-sm">
+  <div class="container">
+    <h1 class="fw-bold display-5">Nuestras Categorías</h1>
+    <p class="lead mb-0">Explora la mejor selección de películas</p>
+  </div>
+</header>
+
+<!-- CONTENIDO PRINCIPAL -->
+<main class="container my-5 flex-grow-1">
+
+  <!-- PANEL DE ADMINISTRADOR -->
+  <div *ngIf="esAdmin" class="row mb-5">
+    <div class="col-12">
+      <div class="card border-warning">
+        <div class="card-header bg-warning text-dark">
+          <h5 class="mb-0">Panel de Administrador</h5>
+        </div>
+        <div class="card-body">
+          <div class="row text-center">
+            <div class="col-md-3" *ngFor="let card of adminCards">
+              <div class="card bg-{{card.bg}} text-white mb-2">
+                <div class="card-body">
+                  <h3>{{ card.valor }}</h3>
+                  <small>{{ card.texto }}</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECOMENDACIONES PARA EL USUARIO -->
+  <div *ngIf="mostrarRecomendaciones" class="row mb-5">
+    <div class="col-12">
+      <div class="card border-info">
+        <div class="card-header bg-info text-white">
+          <h5 class="mb-0">✨ Recomendadas Para Ti</h5>
+        </div>
+        <div class="card-body">
+          <p class="text-muted">
+            Basado en tus géneros favoritos:
+          </p>
+          <div class="row">
+            <div class="col-12 text-center text-muted">No hay recomendaciones por ahora</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORÍAS PRINCIPALES -->
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="col" *ngFor="let categoria of categorias">
+      <div class="card h-100 shadow-sm border-0 position-relative overflow-hidden categoria-card" [attr.data-categoria]="categoria.slug">
+        <img [src]="categoria.imagen"
+             [alt]="'Fondo ' + categoria.nombre"
+             class="w-100"
+             style="height:250px;object-fit:cover;filter:blur(8px) brightness(0.5);" />
+        <div class="card-body text-center text-white position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center">
+          <h5 class="card-title">{{ categoria.emoji }} {{ categoria.nombre }}</h5>
+          <p class="card-text">{{ categoria.descripcion }}</p>
+          <small class="mt-2 opacity-75">{{ categoria.disponibles }} películas disponibles</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

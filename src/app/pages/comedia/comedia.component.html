@@ -1,0 +1,93 @@
+<!-- Bienvenida (opcional) -->
+<div id="bienvenida-usuario"
+     class="alert alert-success alert-dismissible fade show m-0 d-none">
+  <div class="container d-flex align-items-center">
+    <strong>¡Bienvenido/a!</strong>
+    <span id="mensaje-bienvenida" class="ms-2">
+      Has iniciado sesión correctamente.
+    </span>
+    <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="py-5 text-center hero-drama shadow-sm">
+  <div class="container">
+    <h1 class="fw-bold display-5">Películas de Comedia 😂</h1>
+    <p class="lead">Ríe a carcajadas con nuestra colección actualizada.</p>
+  </div>
+</header>
+
+<!-- LISTADO DINÁMICO -->
+<main class="container py-5">
+  <div class="row row-cols-1 row-cols-md-3 g-4 fade-up">
+    <div class="col" *ngFor="let peli of comediaMovies">
+      <div class="card h-100 shadow-sm border-0 position-relative">
+
+        <!-- Badge de descuento -->
+        <span
+          *ngIf="peli.descuento > 0"
+          class="badge bg-danger badge-discount"
+        >
+          -{{ peli.descuento }}%
+        </span>
+
+        <!-- Imagen -->
+        <div class="ratio ratio-4x3">
+          <img
+            [src]="peli.imagen"
+            [alt]="peli.titulo"
+            class="card-img-top object-fit-cover rounded-top"
+          />
+        </div>
+
+        <!-- Cuerpo -->
+        <div class="card-body d-flex flex-column text-center">
+          <h5 class="card-title fw-semibold">
+            {{ peli.titulo }} ({{ peli.anio }})
+          </h5>
+          <p class="card-text flex-grow-1">{{ peli.descripcion }}</p>
+
+          <!-- Precio + botón solo para clientes -->
+          <ng-container *ngIf="isClient">
+            <div class="s-price mb-3">
+              ${{ precioFinal(peli) | number:'1.0-0' }}
+            </div>
+            <button
+              class="btn btn-brand w-100 mt-auto"
+              (click)="agregarAlCarrito(peli)"
+            >
+              Agregar al carrito
+            </button>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- OFFCANVAS CARRITO: se mantiene igual -->
+<div
+  class="offcanvas offcanvas-end offcanvas-cart"
+  tabindex="-1"
+  id="offcanvasCart"
+  aria-labelledby="offcanvasCartLabel"
+>
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasCartLabel">🛒 Tu Carrito</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+    <ul id="cart-items-list" class="list-group mb-3"></ul>
+    <div id="empty-cart" class="empty-cart d-none">
+      Tu carrito está vacío
+    </div>
+    <div id="cart-footer" class="mt-auto d-none">
+      <div class="d-flex justify-content-between mb-3">
+        <strong>Total:</strong>
+        <span id="cart-total-amount">$0</span>
+      </div>
+      <button class="btn btn-brand w-100">Ir a Pagar</button>
+    </div>
+  </div>
+</div>

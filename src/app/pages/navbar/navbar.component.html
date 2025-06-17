@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+  <div class="container">
+    <a class="navbar-brand fs-3" routerLink="/">🎬 CineMax</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" routerLink="/">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/comedia">Comedia</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/drama">Drama</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/terror">Terror</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/estrategia">Estrategia</a></li>
+      </ul>
+
+      <ul class="navbar-nav ms-auto align-items-center">
+        <!-- Carrito -->
+        <li id="nav-cart" class="nav-item me-3 d-none">
+          <a class="nav-link position-relative" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart">
+            <i class="bi bi-cart3" style="font-size:1.4rem;"></i>
+            <span id="cart-count-badge"
+                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                  style="font-size:.75rem; display:none">
+              0
+            </span>
+          </a>
+        </li>
+
+        <!-- Visitante -->
+        <li id="link-registro" class="nav-item">
+          <a class="nav-link px-2" routerLink="/registro">Registro</a>
+        </li>
+        <li id="link-login" class="nav-item">
+          <a class="nav-link px-2" routerLink="/login">Iniciar Sesión</a>
+        </li>
+
+        <!-- Usuario logueado -->
+        <li id="btn-profile" class="nav-item d-none">
+          <a class="btn btn-outline-light btn-sm me-2" routerLink="/perfil">Mi Perfil</a>
+        </li>
+        <li id="btn-admin" class="nav-item d-none">
+          <a class="btn btn-outline-warning btn-sm me-2" routerLink="/admin">Admin</a>
+        </li>
+        <li id="btn-logout" class="nav-item d-none">
+          <button class="btn btn-outline-light btn-sm">Logout</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
