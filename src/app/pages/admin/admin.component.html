@@ -1,0 +1,95 @@
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow mb-4">
+  <div class="container">
+    <a class="navbar-brand fs-3" routerLink="/">🎬 CineMax</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <button class="btn btn-outline-light" (click)="logout()">Logout</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main class="container my-5 flex-grow-1">
+  <h1 class="mb-4">Panel de Gestión de Usuarios</h1>
+
+  <!-- Mensaje de NO autorizado -->
+  <div *ngIf="notAuthorized" class="alert alert-danger">
+    No tienes permisos para ver esta página.
+  </div>
+
+  <!-- Tabla de usuarios -->
+  <div *ngIf="!notAuthorized">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Nombre</th>
+          <th>Rol</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of usuarios">
+          <td>{{ user?.email }}</td>
+          <td>{{ user?.nombre }}</td>
+          <td>{{ user?.rol | titlecase }}</td>
+          <td>
+            <button class="btn btn-sm btn-primary me-2" (click)="openEdit(user)">Editar</button>
+            <button *ngIf="user?.email !== sesion?.email" class="btn btn-sm btn-danger" (click)="eliminarUsuario(user)">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<!-- Modal edición usuario -->
+<div
+  class="modal fade show"
+  tabindex="-1"
+  style="display: block;"
+  *ngIf="editModalOpen && userEdit"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form (ngSubmit)="guardarEdicion()">
+        <div class="modal-header">
+          <h5 class="modal-title">Modificar Usuario</h5>
+          <button type="button" class="btn-close" (click)="cerrarModal()"></button>
+        </div>
+        <div class="modal-body">
+          <div *ngIf="editMsg" class="alert alert-danger">{{ editMsg }}</div>
+          <div class="mb-3">
+            <label>Nombre completo</label>
+            <input [(ngModel)]="userEdit.nombre" name="nombreEdit" class="form-control" required />
+          </div>
+          <div class="mb-2 form-text">Deja en blanco si no deseas cambiar la contraseña.</div>
+          <div class="mb-3">
+            <label>Contraseña nueva</label>
+            <input type="password" [(ngModel)]="editClave" name="editClave" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label>Confirmar contraseña</label>
+            <input type="password" [(ngModel)]="editClave2" name="editClave2" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label>Rol</label>
+            <select [(ngModel)]="userEdit.rol" name="rolEdit" class="form-select">
+              <option value="cliente">Cliente</option>
+              <option value="admin">Administrador</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="cerrarModal()">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

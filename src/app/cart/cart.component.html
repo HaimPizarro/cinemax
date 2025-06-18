@@ -1,0 +1,28 @@
+<!-- Offcanvas del carrito -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCart" aria-labelledby="offcanvasCartLabel">
+  <div class="offcanvas-header">
+    <h5 id="offcanvasCartLabel">Carrito de Compras</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+  <div class="offcanvas-body">
+    <ul *ngIf="cart.length > 0">
+      <li *ngFor="let item of cart; let i = index">
+        {{ item.nombre }} - ${{ item.precio | number }} x {{ item.cantidad }}
+        <button (click)="eliminar(i)">Eliminar</button>
+      </li>
+    </ul>
+    <div *ngIf="cart.length > 0">
+      Total: ${{ total | number }}
+    </div>
+    <ng-template #emptyCart>
+      <div class="text-center text-muted my-5">Tu carrito está vacío</div>
+    </ng-template>
+  </div>
+  <div class="offcanvas-footer px-4 pb-3" *ngIf="cart.length > 0">
+    <div class="d-flex justify-content-between fw-bold fs-5">
+      <span>Total:</span>
+      <span>${{ totalAmount | number:'1.0-0' }}</span>
+    </div>
+    <!-- Aquí podrías agregar botón de "Ir a pagar" -->
+  </div>
+</div>
