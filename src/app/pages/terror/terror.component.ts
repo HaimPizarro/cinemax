@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule }      from '@angular/common';
+import { CartService }       from '../../services/cart.services';
+import { AuthService, Sesion } from '../../services/auth.services';
 
 interface Pelicula {
   id: number;
   titulo: string;
-  anio: number;         // año → anio
-  descripcion: string;  // descripción → descripcion
+  anio: number;
+  descripcion: string;
   precio: number;
   descuento: number;
   imagen: string;
@@ -18,7 +20,7 @@ interface Pelicula {
   templateUrl: './terror.component.html',
 })
 export class TerrorComponent implements OnInit {
-
+  /** Catálogo fijo de películas de terror */
   terrorMovies: Pelicula[] = [
     {
       id: 1,
@@ -45,27 +47,35 @@ export class TerrorComponent implements OnInit {
       descripcion: "Una familia descubre oscuros secretos tras la muerte de la abuela.",
       precio: 13490,
       descuento: 10,
-      imagen: "https://m.media-amazon.com/images/M/MV5BOTlkOGY0OWUtYTg1My00ZGU2LTliZTItODI5NjJkNDAwYzQwXkEyXkFqcGc@._V1_.jpg",
+      imagen: "https://m.media-amazon.com/images/M/MV5BOTlkOGY0OWUtYTg1My00ZGU2LTliZTItODI5NjJkNDAwYzQwXkFqcGc@._V1_.jpg",
     },
   ];
 
+  /** Solo mostramos precio y botón si el usuario es cliente */
   isClient = false;
 
+  constructor(
+    private cartService: CartService,
+    private auth: AuthService
+  ) {}
+
   ngOnInit(): void {
-    const sesion: any = (window as any).obtenerSesion?.() ?? null;
-    this.isClient = sesion?.rol === 'cliente';
+    // Nos suscribimos al estado de sesión
+    this.auth.sesion$.subscribe((sesion: Sesion | null) => {
+      this.isClient = sesion?.rol === 'cliente';
+    });
   }
 
+  /** Precio con descuento redondeado */
   precioFinal(p: Pelicula): number {
     return p.descuento > 0
       ? Math.round(p.precio * (1 - p.descuento / 100))
       : p.precio;
   }
 
+  /** Agrega la película al carrito */
   agregarAlCarrito(p: Pelicula): void {
-    (window as any).agregarAlCarrito?.(
-      p.titulo,
-      `$${this.precioFinal(p).toLocaleString()}`
-    );
+    const precio = this.precioFinal(p);
+    this.cartService.agregarAlCarrito(p.titulo, precio);
   }
 }

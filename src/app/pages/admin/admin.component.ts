@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsuariosService, Usuario } from '../../services/usuarios.services';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth.services';
 
 @Component({
   selector: 'app-admin',
@@ -22,7 +23,8 @@ export class AdminComponent implements OnInit {
 
   notAuthorized = false;
 
-  constructor(private usuariosService: UsuariosService) {}
+  constructor(private usuariosService: UsuariosService,
+            private auth: AuthService) {}
 
   ngOnInit() {
     this.checkSesion();
@@ -78,7 +80,7 @@ export class AdminComponent implements OnInit {
   }
 
   eliminarUsuario(user: Usuario) {
-    if (user.email === this.sesion?.email) return; // no puedes eliminarte a ti mismo
+    if (user.email === this.sesion?.email) return;
     if (confirm(`¿Eliminar a ${user.email}?`)) {
       this.usuariosService.delete(user.email);
       this.cargarUsuarios();
@@ -93,6 +95,7 @@ export class AdminComponent implements OnInit {
     if (confirm('¿Cerrar sesión?')) {
       sessionStorage.removeItem('sesionCineMax');
       localStorage.removeItem('recordarUsuario');
+      this.auth.logout();
       window.location.href = '/login';
     }
   }

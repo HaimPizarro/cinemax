@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 export interface CartItem {
   nombre: string;
@@ -12,6 +12,10 @@ export class CartService {
   private storageKey = 'cineMaxCart';
   private cartSubject = new BehaviorSubject<CartItem[]>(this.obtenerCarrito());
   cart$ = this.cartSubject.asObservable();
+
+  // Nuevo: subject para mensajes
+  private notifSubject = new Subject<string>();
+  notif$ = this.notifSubject.asObservable();
 
   private obtenerCarrito(): CartItem[] {
     const raw = localStorage.getItem(this.storageKey);
@@ -44,20 +48,24 @@ export class CartService {
       cart.push({ nombre, precio, cantidad: 1 });
     }
     this.guardarCarrito([...cart]);
+    this.notifSubject.next('Película agregada');
   }
 
   quitarDelCarrito(nombre: string) {
     let cart = this.getCart().filter(i => i.nombre !== nombre);
     this.guardarCarrito(cart);
+    this.notifSubject.next('Película quitada');
   }
 
   eliminarPorIndice(index: number) {
     let cart = this.getCart();
     cart.splice(index, 1);
     this.guardarCarrito([...cart]);
+    this.notifSubject.next('Película quitada');
   }
 
   limpiarCarrito() {
     this.guardarCarrito([]);
+    this.notifSubject.next('Carrito vaciado');
   }
 }

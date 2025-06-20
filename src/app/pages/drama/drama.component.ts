@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule }      from '@angular/common';
+import { CartService }       from '../../services/cart.services';
+import { AuthService, Sesion } from '../../services/auth.services';
 
 interface Pelicula {
   id: number;
   titulo: string;
-  anio: number;         // ← sin tilde
-  descripcion: string;  // ← sin tilde
+  anio: number;
+  descripcion: string;
   precio: number;
   descuento: number;
   imagen: string;
@@ -18,7 +20,7 @@ interface Pelicula {
   templateUrl: './drama.component.html',
 })
 export class DramaComponent implements OnInit {
-
+  /** Catálogo fijo de películas de drama */
   dramaMovies: Pelicula[] = [
     {
       id: 1,
@@ -55,25 +57,31 @@ export class DramaComponent implements OnInit {
     },
   ];
 
+  /** Controla si el usuario logueado es cliente */
   isClient = false;
 
+  constructor(
+    private cartService: CartService,
+    private auth: AuthService
+  ) {}
+
   ngOnInit(): void {
-    const sesion: any = (window as any).obtenerSesion?.() ?? null;
-    this.isClient = sesion?.rol === 'cliente';
+    // Suscríbete al estado de sesión para actualizar isClient
+    this.auth.sesion$.subscribe((sesion: Sesion | null) => {
+      this.isClient = sesion?.rol === 'cliente';
+    });
   }
 
-  /** Precio final con descuento */
+  /** Calcula el precio con descuento redondeado */
   precioFinal(p: Pelicula): number {
     return p.descuento > 0
       ? Math.round(p.precio * (1 - p.descuento / 100))
       : p.precio;
   }
 
-  /** Añadir al carrito (usa tu función global) */
+  /** Agrega la peli al carrito pasando título y precio numérico */
   agregarAlCarrito(p: Pelicula): void {
-    (window as any).agregarAlCarrito?.(
-      p.titulo,
-      `$${this.precioFinal(p).toLocaleString()}`
-    );
+    const precio = this.precioFinal(p);
+    this.cartService.agregarAlCarrito(p.titulo, precio);
   }
 }

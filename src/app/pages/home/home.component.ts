@@ -1,5 +1,7 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { AuthService, Sesion } from '../../services/auth.services';
 
 interface Categoria {
   slug: string;
@@ -13,13 +15,15 @@ interface Categoria {
 @Component({
   selector: 'app-home',
   standalone: true,
+  imports: [CommonModule, RouterModule],  // RouterModule para routerLink
   templateUrl: './home.component.html',
-  imports: [CommonModule],
 })
-export class HomeComponent {
-  mostrarBienvenida = true;
+export class HomeComponent implements OnInit {
+  mostrarBienvenida = false;
   esAdmin = false;
   mostrarRecomendaciones = false;
+
+  private welcomeShown = false;
 
   adminCards = [
     { valor: 24, texto: 'Usuarios Registrados', bg: 'primary' },
@@ -55,11 +59,32 @@ export class HomeComponent {
     },
     {
       slug: 'estrategia',
-      nombre: 'Películas de Acción',
-      emoji: '💥',
-      descripcion: 'Velocidad, adrenalina y grandes explosiones.',
+      nombre: 'Películas de Estrategia',
+      emoji: '🧠',
+      descripcion: 'Planifica tu próxima jugada con nuestra selección estratégica.',
       disponibles: 27,
       imagen: 'https://light.pawa.cl/img/2022/06/12014901/1653297680_702523_1653300885_noticia_normal.jpg'
     }
   ];
+
+  constructor(private auth: AuthService) {}
+
+  ngOnInit() {
+    this.auth.sesion$.subscribe((sesion: Sesion | null) => {
+      this.esAdmin = sesion?.rol === 'admin';
+      this.mostrarRecomendaciones = !!sesion;
+
+      // Solo si hay sesión y el flag está en sessionStorage
+      if (sesion && sessionStorage.getItem('showWelcome') === 'true') {
+        this.mostrarBienvenida = true;
+        // consumir el flag para no mostrar nunca más
+        sessionStorage.removeItem('showWelcome');
+
+        // ocultamos automáticamente tras 4 segundos
+        setTimeout(() => {
+          this.mostrarBienvenida = false;
+        }, 4000);
+      }
+    });
+  }
 }

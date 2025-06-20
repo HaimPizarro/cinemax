@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { UsuariosService } from '../../services/usuarios.services';
+import { AuthService } from '../../services/auth.services';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +16,12 @@ export class LoginComponent {
   loginForm;
   errorMsg: string | null = null;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private usuariosService: UsuariosService,
+    private auth: AuthService,
+    private router: Router
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
@@ -32,14 +40,11 @@ export class LoginComponent {
       return;
     }
 
-    // Simulación de backend usando localStorage
-    const usuariosStr = localStorage.getItem('usersCineMax');
-    const usuarios = usuariosStr ? JSON.parse(usuariosStr) : {};
-
     const email = (this.loginForm.value.email ?? '').trim().toLowerCase();
     const pass  = (this.loginForm.value.password ?? '').trim();
 
-    const user = usuarios[email];
+    const user = this.usuariosService.get(email);
+
     if (!user || user.clave !== pass) {
       this.errorMsg = 'Credenciales incorrectas. Verifica tu email y contraseña.';
       this.loginForm.get('email')?.setErrors({ incorrect: true });
@@ -60,7 +65,8 @@ export class LoginComponent {
       localStorage.removeItem('recordarUsuario');
     }
 
-    alert(`¡Bienvenido/a ${user.nombre}!`);
-    window.location.href = user.rol === 'admin' ? '/admin' : '/';
+    this.auth.login(sesion);
+    sessionStorage.setItem('showWelcome', 'true');
+    this.router.navigate([user.rol === 'admin' ? '/admin' : '/']);
   }
 }

@@ -6,13 +6,13 @@
   </div>
 </header>
 
-<!-- LISTADO de tarjetas -->
+<!-- LISTADO DINÁMICO -->
 <main class="container py-5">
   <div class="row row-cols-1 row-cols-md-3 g-4 fade-up">
     <div class="col" *ngFor="let peli of estrategiaMovies">
       <div class="card h-100 shadow-sm border-0 position-relative">
 
-        <!-- Badge descuento -->
+        <!-- Badge de descuento -->
         <span *ngIf="peli.descuento > 0"
               class="badge bg-danger badge-discount">
           -{{ peli.descuento }}%
@@ -22,7 +22,7 @@
         <div class="ratio ratio-4x3">
           <img [src]="peli.imagen"
                [alt]="peli.titulo"
-               class="card-img-top object-fit-cover rounded-top">
+               class="card-img-top object-fit-cover rounded-top" />
         </div>
 
         <!-- Cuerpo -->
@@ -47,28 +47,3 @@
     </div>
   </div>
 </main>
-
-<!-- OFFCANVAS Carrito (sin cambios) -->
-<div
-  class="offcanvas offcanvas-end offcanvas-cart"
-  tabindex="-1"
-  id="offcanvasCart"
-  aria-labelledby="offcanvasCartLabel"
->
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasCartLabel">🛒 Tu Carrito</h5>
-    <button type="button" class="btn-close text-reset"
-            data-bs-dismiss="offcanvas"></button>
-  </div>
-  <div class="offcanvas-body d-flex flex-column">
-    <ul id="cart-items-list" class="list-group mb-3"></ul>
-    <div id="empty-cart" class="empty-cart d-none">Tu carrito está vacío</div>
-    <div id="cart-footer" class="mt-auto d-none">
-      <div class="d-flex justify-content-between mb-3">
-        <strong>Total:</strong>
-        <span id="cart-total-amount">$0</span>
-      </div>
-      <button class="btn btn-brand w-100">Ir a Pagar</button>
-    </div>
-  </div>
-</div>

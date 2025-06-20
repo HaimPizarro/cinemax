@@ -1,28 +1,66 @@
+<!-- Toast container top-center -->
+<div
+  class="toast-container position-fixed top-0 start-50 translate-middle-x pt-3"
+  style="z-index: 1055;"
+>
+  <div
+    class="toast align-items-center text-white border-0"
+    role="alert"
+    [class.bg-success]="notifType==='success'"
+    [class.bg-danger]="notifType==='danger'"
+    [class.show]="showToast"
+    [class.hide]="!showToast"
+  >
+    <div class="d-flex justify-content-center w-100">
+      <div class="toast-body">
+        {{ notifMessage }}
+      </div>
+      <button
+        type="button"
+        class="btn-close btn-close-white me-2 m-auto"
+        (click)="showToast = false"
+      ></button>
+    </div>
+  </div>
+</div>
+
 <!-- Offcanvas del carrito -->
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCart" aria-labelledby="offcanvasCartLabel">
+<div
+  class="offcanvas offcanvas-end"
+  tabindex="-1"
+  id="offcanvasCart"
+  aria-labelledby="offcanvasCartLabel"
+>
   <div class="offcanvas-header">
     <h5 id="offcanvasCartLabel">Carrito de Compras</h5>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
   </div>
-  <div class="offcanvas-body">
-    <ul *ngIf="cart.length > 0">
-      <li *ngFor="let item of cart; let i = index">
-        {{ item.nombre }} - ${{ item.precio | number }} x {{ item.cantidad }}
-        <button (click)="eliminar(i)">Eliminar</button>
+  <div class="offcanvas-body d-flex flex-column">
+    <ul *ngIf="cart.length > 0; else emptyCart">
+      <li
+        *ngFor="let item of cart; let i = index"
+        class="d-flex justify-content-between align-items-center mb-2"
+      >
+        <div>
+          {{ item.nombre }} - ${{ item.precio | number }} x {{ item.cantidad }}
+        </div>
+        <button class="btn btn-sm btn-outline-danger" (click)="eliminar(i)">
+          <i class="bi bi-trash"></i>
+        </button>
       </li>
     </ul>
-    <div *ngIf="cart.length > 0">
-      Total: ${{ total | number }}
-    </div>
     <ng-template #emptyCart>
       <div class="text-center text-muted my-5">Tu carrito está vacío</div>
     </ng-template>
   </div>
   <div class="offcanvas-footer px-4 pb-3" *ngIf="cart.length > 0">
-    <div class="d-flex justify-content-between fw-bold fs-5">
+    <div class="d-flex justify-content-between fw-bold fs-5 mb-3">
       <span>Total:</span>
       <span>${{ totalAmount | number:'1.0-0' }}</span>
     </div>
-    <!-- Aquí podrías agregar botón de "Ir a pagar" -->
+    <!-- Botón Ir a Pagar -->
+    <button class="btn btn-success w-100">
+      Ir a Pagar
+    </button>
   </div>
 </div>

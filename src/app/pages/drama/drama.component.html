@@ -6,7 +6,7 @@
   </div>
 </header>
 
-<!-- LISTADO -->
+<!-- LISTADO DINÁMICO -->
 <main class="container py-5">
   <div class="row row-cols-1 row-cols-md-3 g-4 fade-up">
     <div class="col" *ngFor="let peli of dramaMovies">
@@ -22,7 +22,7 @@
         <div class="ratio ratio-4x3">
           <img [src]="peli.imagen"
                [alt]="peli.titulo"
-               class="card-img-top object-fit-cover rounded-top">
+               class="card-img-top object-fit-cover rounded-top" />
         </div>
 
         <!-- Cuerpo -->
@@ -32,6 +32,7 @@
           </h5>
           <p class="card-text flex-grow-1">{{ peli.descripcion }}</p>
 
+          <!-- Precio + botón solo para clientes -->
           <ng-container *ngIf="isClient">
             <div class="s-price mb-3">
               ${{ precioFinal(peli) | number:'1.0-0' }}
@@ -46,25 +47,3 @@
     </div>
   </div>
 </main>
-
-<!-- OFFCANVAS CARRITO (igual que antes) -->
-<div class="offcanvas offcanvas-end offcanvas-cart"
-     tabindex="-1" id="offcanvasCart"
-     aria-labelledby="offcanvasCartLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasCartLabel">🛒 Tu Carrito</h5>
-    <button type="button" class="btn-close"
-            data-bs-dismiss="offcanvas"></button>
-  </div>
-  <div class="offcanvas-body d-flex flex-column">
-    <ul id="cart-items-list" class="list-group mb-3"></ul>
-    <div id="empty-cart" class="empty-cart d-none">Tu carrito está vacío</div>
-    <div id="cart-footer" class="mt-auto d-none">
-      <div class="d-flex justify-content-between mb-3">
-        <strong>Total:</strong>
-        <span id="cart-total-amount">$0</span>
-      </div>
-      <button class="btn btn-brand w-100">Ir a Pagar</button>
-    </div>
-  </div>
-</div>
