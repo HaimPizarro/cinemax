@@ -1,14 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
   <div class="container">
     <a class="navbar-brand fs-3" routerLink="/">🎬 CineMax</a>
-
-    <button class="navbar-toggler" type="button"
-            data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarNav">
-
       <!-- Menú principal -->
       <ul class="navbar-nav me-auto">
         <li class="nav-item"><a class="nav-link" routerLink="/">Inicio</a></li>
@@ -20,15 +16,13 @@
 
       <!-- Lado derecho -->
       <ul class="navbar-nav ms-auto align-items-center">
-
-        <!-- Carrito: visible sólo si hay sesión -->
         <li class="nav-item me-3" *ngIf="sesion">
           <a class="nav-link position-relative" href="#"
-             data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart">
+             data-bs-toggle="offcanvas"
+             data-bs-target="#offcanvasCart">
             <i class="bi bi-cart3" style="font-size:1.4rem;"></i>
             <span *ngIf="cartCount > 0"
-                  class="position-absolute top-0 start-100 translate-middle
-                         badge rounded-pill bg-danger"
+                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
                   style="font-size:.75rem;">
               {{ cartCount }}
             </span>
@@ -48,28 +42,42 @@
         <!-- Usuario autenticado -->
         <ng-container *ngIf="sesion">
           <li class="nav-item">
-            <a class="btn btn-outline-light btn-sm me-2" routerLink="/perfil">
-              Mi Perfil
-            </a>
+            <a class="btn btn-outline-light btn-sm me-2" routerLink="/perfil">Mi Perfil</a>
           </li>
-
-          <!-- Sólo administradores -->
           <li class="nav-item" *ngIf="sesion.rol === 'admin'">
-            <a class="btn btn-outline-warning btn-sm me-2" routerLink="/admin">
-              Admin
-            </a>
+            <a class="btn btn-outline-warning btn-sm me-2" routerLink="/admin">Admin</a>
           </li>
-
           <li class="nav-item">
-            <button class="btn btn-outline-light btn-sm" (click)="logout()">
+            <button class="btn btn-outline-light btn-sm" (click)="openLogoutModal()">
               Logout
             </button>
           </li>
         </ng-container>
-
       </ul>
     </div>
   </div>
 </nav>
 
 <app-cart></app-cart>
+
+<!-- Logout Confirmation Modal -->
+<div *ngIf="showLogoutModal" class="modal-backdrop-custom"></div>
+<div *ngIf="showLogoutModal" class="modal-dialog-centered-custom">
+  <div class="modal-content shadow-lg">
+    <div class="modal-header bg-dark text-white">
+      <h5 class="modal-title"><i class="bi bi-box-arrow-right me-2"></i>Confirmar Cierre</h5>
+      <button type="button" class="btn-close btn-close-white" (click)="cancelLogout()"></button>
+    </div>
+    <div class="modal-body">
+      <p class="mb-0">¿Estás seguro de querer cerrar sesión?</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline-secondary" (click)="cancelLogout()">
+        Cancelar
+      </button>
+      <button class="btn btn-danger" (click)="confirmLogout()">
+        Sí, cerrar sesión
+      </button>
+    </div>
+  </div>
+</div>

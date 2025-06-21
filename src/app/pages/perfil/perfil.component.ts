@@ -20,22 +20,30 @@ export class PerfilComponent {
   nuevaPass2 = '';
   passMsg = '';
 
+  // Para mostrar mensajes
+  showMsg = false;
+  msgText = '';
+  msgType: 'success' | 'danger' = 'success';
+
   constructor(private router: Router) {}
 
   ngOnInit(): void {
     const sesionRaw = sessionStorage.getItem('sesionCineMax');
     this.sesion = sesionRaw ? JSON.parse(sesionRaw) : null;
     this.nuevoNombre = this.sesion?.nombre || '';
-    if (!this.sesion) {
-      // Podrías redirigir al login si prefieres:
-      // this.router.navigate(['/login']);
-    }
   }
 
   logout() {
     sessionStorage.removeItem('sesionCineMax');
     localStorage.removeItem('recordarUsuario');
     this.router.navigate(['/login']);
+  }
+
+  private displayMessage(text: string, type: 'success' | 'danger') {
+    this.msgText = text;
+    this.msgType = type;
+    this.showMsg = true;
+    setTimeout(() => (this.showMsg = false), 4000);
   }
 
   editarNombre() {
@@ -45,18 +53,22 @@ export class PerfilComponent {
 
   guardarNombre() {
     if (!this.nuevoNombre.trim()) {
-      alert('El nombre no puede quedar vacío.');
+      this.displayMessage('El nombre no puede quedar vacío.', 'danger');
       return;
     }
-    this.sesion.nombre = this.nuevoNombre.trim();
-    sessionStorage.setItem('sesionCineMax', JSON.stringify(this.sesion));
-    // Actualiza en "BD" (localStorage)
-    const users = JSON.parse(localStorage.getItem('usersCineMax') || '{}');
-    if (users[this.sesion.email]) {
-      users[this.sesion.email].nombre = this.sesion.nombre;
-      localStorage.setItem('usersCineMax', JSON.stringify(users));
+    try {
+      this.sesion.nombre = this.nuevoNombre.trim();
+      sessionStorage.setItem('sesionCineMax', JSON.stringify(this.sesion));
+      const users = JSON.parse(localStorage.getItem('usersCineMax') || '{}');
+      if (users[this.sesion.email]) {
+        users[this.sesion.email].nombre = this.sesion.nombre;
+        localStorage.setItem('usersCineMax', JSON.stringify(users));
+      }
+      this.editandoNombre = false;
+      this.displayMessage('Cambios guardados exitosamente.', 'success');
+    } catch (e) {
+      this.displayMessage('Error al guardar los cambios.', 'danger');
     }
-    this.editandoNombre = false;
   }
 
   guardarPassword() {
@@ -70,17 +82,20 @@ export class PerfilComponent {
       this.passMsg = 'Las contraseñas no coinciden.';
       return;
     }
-    this.sesion.clave = this.nuevaPass;
-    sessionStorage.setItem('sesionCineMax', JSON.stringify(this.sesion));
-    // Actualiza en localStorage
-    const users = JSON.parse(localStorage.getItem('usersCineMax') || '{}');
-    if (users[this.sesion.email]) {
-      users[this.sesion.email].clave = this.nuevaPass;
-      localStorage.setItem('usersCineMax', JSON.stringify(users));
+    try {
+      this.sesion.clave = this.nuevaPass;
+      sessionStorage.setItem('sesionCineMax', JSON.stringify(this.sesion));
+      const users = JSON.parse(localStorage.getItem('usersCineMax') || '{}');
+      if (users[this.sesion.email]) {
+        users[this.sesion.email].clave = this.nuevaPass;
+        localStorage.setItem('usersCineMax', JSON.stringify(users));
+      }
+      this.nuevaPass = this.nuevaPass2 = '';
+      this.editandoPass = false;
+      this.passMsg = '';
+      this.displayMessage('Contraseña actualizada.', 'success');
+    } catch (e) {
+      this.displayMessage('Error al guardar los cambios.', 'danger');
     }
-    this.nuevaPass = this.nuevaPass2 = '';
-    this.editandoPass = false;
-    this.passMsg = '';
-    alert('Contraseña actualizada.');
   }
 }

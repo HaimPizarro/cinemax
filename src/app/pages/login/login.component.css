@@ -1,24 +1,4 @@
 /* ---- CineMax Login Styles ---- */
-:root {
-  --brand-dark: #212529;
-  --shadow-lg: 0 10px 30px rgba(0, 0, 0, .1);
-}
-
-body {
-  background: #f8f9fa;
-}
-
-.btn-brand {
-  background: var(--brand-dark);
-  border-color: var(--brand-dark);
-  color: #fff;
-  transition: .2s;
-}
-.btn-brand:hover {
-  background: #343a40;
-  border-color: #343a40;
-  color: #fff;
-}
 
 .login-container {
   min-height: 100vh;
@@ -27,13 +7,15 @@ body {
   justify-content: center;
   padding: 2rem 0;
 }
+
 .login-card {
   max-width: 900px;
   width: 100%;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .1);
   border-radius: 15px;
   overflow: hidden;
 }
+
 .login-left {
   background: #563dff;
   color: #fff;
@@ -42,39 +24,33 @@ body {
   justify-content: center;
   padding: 3rem 2rem;
 }
-.login-left h2 { font-weight: 700; }
-.login-form { padding: 3rem; }
+
+.login-left h2 {
+  font-weight: 700;
+}
+
+.login-form {
+  padding: 3rem;
+}
 
 .form-control {
   border-radius: 10px;
   border: 2px solid #e9ecef;
   padding: .75rem 1rem;
-  transition: .3s;
-}
-.form-control:focus {
-  border-color: var(--brand-dark);
-  box-shadow: 0 0 0 .2rem rgba(33, 37, 41, .25);
+  transition: border-color .3s, box-shadow .3s;
 }
 
-.role-badge {
-  display: inline-block;
-  padding: .25rem .75rem;
-  border-radius: 50px;
-  font-size: .8rem;
-  font-weight: 500;
-  margin: .25rem;
-  cursor: pointer;
-  border: 2px solid transparent;
-  transition: .3s;
-}
-.role-badge.cliente { background: #e3f2fd; color: #1976d2; }
-.role-badge.admin   { background: #fff3e0; color: #f57c00; }
-.role-badge.selected {
-  border-color: #fff;
-  transform: scale(1.05);
+.form-control:focus {
+  border-color: #563dff;
+  box-shadow: 0 0 0 .2rem rgba(86, 61, 255, .25);
 }
 
 @media (max-width: 768px) {
-  .login-form, .login-left { padding: 2rem; }
-  .login-card { margin: 1rem; }
+  .login-form,
+  .login-left {
+    padding: 2rem;
+  }
+  .login-card {
+    margin: 1rem;
+  }
 }

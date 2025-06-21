@@ -11,41 +11,34 @@ export interface Usuario {
 export class UsuariosService {
   private key = 'usersCineMax';
 
+  /** Sólo se ejecuta la primera vez que no existe la key */
   private ensureDefaultUsers() {
-  const defaults: { [k: string]: Usuario } = {
-    'cliente@cinemax.com': {
-      email: 'cliente@cinemax.com',
-      nombre: 'Juan Pérez',
-      clave: 'Cliente123',
-      rol: 'cliente'
-    },
-    'admin@cinemax.com': {
-      email: 'admin@cinemax.com',
-      nombre: 'Haim Pizarro',
-      clave: 'Admin123',
-      rol: 'admin'
+    // si ya existe, no hacemos nada
+    if (localStorage.getItem(this.key)) {
+      return;
     }
-  };
 
-  // Carga lo existente (si hay) o crea objeto vacío
-  const stored: { [k: string]: Usuario } =
-    JSON.parse(localStorage.getItem(this.key) || '{}');
+    // usuarios por defecto
+    const initial: { [k: string]: Usuario } = {
+      'cliente@cinemax.com': {
+        email: 'cliente@cinemax.com',
+        nombre: 'Juan Pérez',
+        clave: 'Cliente123',
+        rol: 'cliente'
+      },
+      'admin@cinemax.com': {
+        email: 'admin@cinemax.com',
+        nombre: 'Haim Pizarro',
+        clave: 'Admin123',
+        rol: 'admin'
+      }
+    };
 
-  // Añade los que falten
-  let cambiado = false;
-  Object.values(defaults).forEach(u => {
-    const k = u.email.trim().toLowerCase();
-    if (!stored[k]) {           // sólo si no existe
-      stored[k] = u;
-      cambiado = true;
-    }
-  });
-
-  if (cambiado) {               // guarda sólo cuando realmente cambió algo
-    localStorage.setItem(this.key, JSON.stringify(stored));
+    // guardamos directamente el mapa inicial
+    localStorage.setItem(this.key, JSON.stringify(initial));
   }
-}
 
+  /** Devuelve todos los usuarios, inicializando sólo si es la primera vez */
   getAll(): { [key: string]: Usuario } {
     this.ensureDefaultUsers();
     return JSON.parse(localStorage.getItem(this.key) || '{}');

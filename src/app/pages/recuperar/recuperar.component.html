@@ -1,54 +1,102 @@
-<main class="container flex-grow-1 py-5">
+<main class="container flex-grow-1 py-5 position-relative">
+
+  <!-- TOAST -->
+  <div
+    *ngIf="showToast"
+    class="toast-container position-fixed top-0 start-50 translate-middle-x p-3"
+    style="z-index:2000;"
+  >
+    <div
+      class="toast show align-items-center text-white border-0"
+      [ngClass]="{
+        'bg-success': toastType==='success',
+        'bg-danger':  toastType==='danger'
+      }"
+      role="alert"
+    >
+      <div class="d-flex">
+        <div class="toast-body">{{ toastText }}</div>
+        <button type="button"
+                class="btn-close btn-close-white me-2 m-auto"
+                (click)="showToast=false"></button>
+      </div>
+    </div>
+  </div>
+
   <h2 class="mb-4">Recuperar Contraseña</h2>
 
-  <!-- PASO 1: Ingresar email -->
-  <form *ngIf="paso === 1" [formGroup]="emailForm" (ngSubmit)="verificarEmail()" novalidate>
+  <!-- PASO 1 -->
+  <form *ngIf="paso === 1"
+        [formGroup]="emailForm"
+        (ngSubmit)="verificarEmail()"
+        novalidate>
     <p>Ingresa tu correo para verificar tu cuenta:</p>
     <div class="input-group mb-3">
       <span class="input-group-text">&#64;</span>
       <input type="email"
-             id="email-input"
              formControlName="correo"
              class="form-control"
              placeholder="correo@ejemplo.com"
-             [class.is-invalid]="emailForm.get('correo')?.invalid && emailForm.get('correo')?.touched" />
+             [class.is-invalid]="
+               emailForm.get('correo')?.invalid &&
+               emailForm.get('correo')?.touched
+             " />
     </div>
     <button class="btn btn-primary" type="submit">Verificar correo</button>
     <div *ngIf="emailError" class="text-danger mt-2">{{ emailError }}</div>
-    <div *ngIf="emailForm.get('correo')?.invalid && emailForm.get('correo')?.touched" class="text-danger mt-2">
+    <div *ngIf="
+         emailForm.get('correo')?.invalid &&
+         emailForm.get('correo')?.touched
+        "
+         class="text-danger mt-2">
       Ingresa un correo válido.
     </div>
   </form>
 
-  <!-- PASO 2: Cambiar contraseña -->
-  <form *ngIf="paso === 2" [formGroup]="resetForm" (ngSubmit)="resetearClave()" novalidate>
+  <!-- PASO 2 -->
+  <form *ngIf="paso === 2"
+        [formGroup]="resetForm"
+        (ngSubmit)="resetearClave()"
+        novalidate>
     <p>Ingrese su nueva contraseña:</p>
     <div class="mb-3">
       <label class="form-label">Nueva contraseña</label>
       <input type="password"
-             id="new-pass"
              formControlName="clave"
              class="form-control"
              placeholder="6–18 caract., 1 mayús, 1 dígito"
-             [class.is-invalid]="resetForm.get('clave')?.invalid && resetForm.get('clave')?.touched" />
-      <div *ngIf="resetForm.get('clave')?.invalid && resetForm.get('clave')?.touched" class="invalid-feedback d-block">
+             [class.is-invalid]="
+               resetForm.get('clave')?.invalid &&
+               resetForm.get('clave')?.touched
+             " />
+      <div *ngIf="
+             resetForm.get('clave')?.invalid &&
+             resetForm.get('clave')?.touched
+           "
+           class="invalid-feedback d-block">
         La contraseña debe tener 6-18 caracteres, 1 mayúscula y 1 número.
       </div>
     </div>
     <div class="mb-3">
       <label class="form-label">Confirmar contraseña</label>
       <input type="password"
-             id="confirm-pass"
              formControlName="clave2"
              class="form-control"
              placeholder="Repite la contraseña"
-             [class.is-invalid]="resetForm.get('clave2')?.invalid && resetForm.get('clave2')?.touched" />
-      <div *ngIf="resetForm.get('clave2')?.invalid && resetForm.get('clave2')?.touched" class="invalid-feedback d-block">
+             [class.is-invalid]="
+               resetForm.get('clave2')?.invalid &&
+               resetForm.get('clave2')?.touched
+             " />
+      <div *ngIf="
+             resetForm.get('clave2')?.invalid &&
+             resetForm.get('clave2')?.touched
+           "
+           class="invalid-feedback d-block">
         Las contraseñas no coinciden.
       </div>
     </div>
     <button class="btn btn-success" type="submit">
-      <i class="bi bi-check-lg"></i> Guardar
+      <i class="bi bi-check-lg me-1"></i> Guardar
     </button>
     <div *ngIf="resetError" class="text-danger mt-2">{{ resetError }}</div>
   </form>

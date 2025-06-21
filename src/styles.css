@@ -3,6 +3,15 @@
   --bs-body-bg:    #f8f9fa;
   --bs-sombra:     0 2px 5px rgba(0, 0, 0, 0.10);
 }
+html, body {
+  height: 100%;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
 * {
   margin: 0;

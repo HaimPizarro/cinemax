@@ -10,27 +10,39 @@ import { CartComponent } from '../../cart/cart.component';
   standalone: true,
   imports: [CommonModule, RouterLink, CartComponent],
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
   sesion: Sesion | null = null;
   cartCount = 0;
+
+  // Para el modal de logout
+  showLogoutModal = false;
 
   constructor(
     private auth: AuthService,
     public cartService: CartService,
     private router: Router
   ) {
-    // Suscribirse a cambios de sesión
     auth.sesion$.subscribe(s => (this.sesion = s));
-
-    // Suscribirse a cambios del carrito
     cartService.cart$.subscribe(() => {
       this.cartCount = cartService.getCount();
     });
   }
 
-  logout() {
+  /** Abre el diálogo de confirmación */
+  openLogoutModal() {
+    this.showLogoutModal = true;
+  }
+
+  /** Cancela el cierre de sesión */
+  cancelLogout() {
+    this.showLogoutModal = false;
+  }
+
+  /** Confirma y realiza el logout */
+  confirmLogout() {
+    this.showLogoutModal = false;
     this.auth.logout();
     this.router.navigate(['/login']);
   }

@@ -1,65 +1,107 @@
-
-<!-- CONTENIDO -->
 <main class="container flex-grow-1 py-5">
   <h2 class="mb-4">Mi Perfil</h2>
 
-  <!-- aviso sin sesión -->
+  <!-- Mensaje de éxito/error -->
+  <div *ngIf="showMsg"
+       class="alert alert-{{ msgType }} fade show">
+    {{ msgText }}
+  </div>
+
+  <!-- Aviso sin sesión -->
   <div *ngIf="!sesion" class="alert alert-danger">
     Debes iniciar sesión para ver tu perfil.
   </div>
 
-  <!-- datos -->
-  <div *ngIf="sesion">
-    <!-- correo -->
-    <div class="field-row">
-      <div class="field-label">Correo</div>
-      <div class="field-value">{{ sesion.email }}</div>
-    </div>
-
-    <!-- nombre -->
-    <div class="field-row">
-      <div class="field-label">Nombre</div>
-      <div class="field-value d-flex align-items-center">
-        <span *ngIf="!editandoNombre">{{ sesion.nombre }}</span>
-        <input *ngIf="editandoNombre" [(ngModel)]="nuevoNombre" class="form-control form-control-sm edit-input" />
-      </div>
-      <div class="d-flex ms-2">
-        <button *ngIf="!editandoNombre" class="btn btn-outline-secondary edit-btn" (click)="editarNombre()">
-          <i class="bi bi-pencil"></i>
-        </button>
-        <button *ngIf="editandoNombre" class="btn btn-outline-success edit-btn ms-1" (click)="guardarNombre()">
-          <i class="bi bi-check-lg"></i>
-        </button>
-      </div>
-    </div>
-
-    <!-- contraseña -->
-    <div class="field-row">
-      <div class="field-label">Contraseña</div>
-      <div class="field-value"><span>••••••••</span></div>
-      <button class="btn btn-outline-secondary edit-btn ms-2" (click)="editandoPass = !editandoPass">
-        <i class="bi bi-pencil"></i>
+  <div *ngIf="sesion" class="card shadow-sm">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+      <span>Datos de Usuario</span>
+      <button class="btn btn-outline-light btn-sm" (click)="logout()">
+        <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
       </button>
     </div>
 
-    <!-- form contraseña -->
-    <form *ngIf="editandoPass" (ngSubmit)="guardarPassword()" class="mt-3">
-      <div class="mb-3 row">
-        <label class="col-sm-3 col-form-label">Nueva</label>
+    <div class="card-body">
+      <!-- Correo -->
+      <div class="row mb-4">
+        <label class="col-sm-3 col-form-label fw-semibold">Correo</label>
         <div class="col-sm-9">
-          <input [(ngModel)]="nuevaPass" name="nuevaPass" type="password" class="form-control form-control-sm" placeholder="Nueva contraseña" />
+          <input class="form-control" [value]="sesion.email" readonly />
         </div>
       </div>
-      <div class="mb-3 row">
-        <label class="col-sm-3 col-form-label">Confirmar</label>
-        <div class="col-sm-9 d-flex">
-          <input [(ngModel)]="nuevaPass2" name="nuevaPass2" type="password" class="form-control form-control-sm" placeholder="Confirmar contraseña" />
-          <button type="submit" class="btn btn-outline-success edit-btn ms-2">
+
+      <!-- Nombre editable -->
+      <div class="row mb-4 align-items-center">
+        <label class="col-sm-3 col-form-label fw-semibold">Nombre</label>
+        <div class="col-sm-6">
+          <ng-container *ngIf="!editandoNombre; else editNameTpl">
+            <p class="form-control-plaintext">{{ sesion.nombre }}</p>
+          </ng-container>
+          <ng-template #editNameTpl>
+            <input [(ngModel)]="nuevoNombre"
+                   class="form-control"
+                   placeholder="Ingresa tu nombre" />
+          </ng-template>
+        </div>
+        <div class="col-sm-3 text-end">
+          <button *ngIf="!editandoNombre"
+                  class="btn btn-outline-secondary btn-sm"
+                  (click)="editarNombre()">
+            <i class="bi bi-pencil"></i>
+          </button>
+          <button *ngIf="editandoNombre"
+                  class="btn btn-success btn-sm"
+                  (click)="guardarNombre()">
             <i class="bi bi-check-lg"></i>
           </button>
         </div>
       </div>
-      <div *ngIf="passMsg" class="text-danger">{{ passMsg }}</div>
-    </form>
+
+      <!-- Contraseña -->
+      <div class="row mb-2 align-items-center">
+        <label class="col-sm-3 col-form-label fw-semibold">Contraseña</label>
+        <div class="col-sm-6">
+          <p class="form-control-plaintext">••••••••</p>
+        </div>
+        <div class="col-sm-3 text-end">
+          <button class="btn btn-outline-secondary btn-sm"
+                  (click)="editandoPass = !editandoPass">
+            <i class="bi bi-pencil"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Cambio de contraseña -->
+      <form *ngIf="editandoPass" (ngSubmit)="guardarPassword()">
+        <div class="row mb-3">
+          <label class="col-sm-3 col-form-label">Nueva</label>
+          <div class="col-sm-9">
+            <input [(ngModel)]="nuevaPass"
+                   name="nuevaPass"
+                   type="password"
+                   class="form-control"
+                   placeholder="Nueva contraseña" />
+          </div>
+        </div>
+        <div class="row mb-2">
+          <label class="col-sm-3 col-form-label">Confirmar</label>
+          <div class="col-sm-9 d-flex align-items-center">
+            <input [(ngModel)]="nuevaPass2"
+                   name="nuevaPass2"
+                   type="password"
+                   class="form-control"
+                   placeholder="Repite la contraseña" />
+            <button type="submit"
+                    class="btn btn-success btn-sm ms-2">
+              <i class="bi bi-check-lg"></i>
+            </button>
+          </div>
+        </div>
+        <div *ngIf="passMsg" class="row">
+          <div class="offset-sm-3 col-sm-9">
+            <small class="text-danger">{{ passMsg }}</small>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 </main>

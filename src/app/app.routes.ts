@@ -10,6 +10,7 @@ import { PerfilComponent }  from './pages/perfil/perfil.component';
 import { AdminComponent }   from './pages/admin/admin.component';
 import { RegistroComponent } from './pages/registro/registro.component';
 import { LoginComponent }   from './pages/login/login.component';
+import { RecuperarComponent } from './pages/recuperar/recuperar.component';
 
 export const routes: Routes = [
   { path: '',         component: HomeComponent },
@@ -18,6 +19,7 @@ export const routes: Routes = [
   { path: 'terror',   component: TerrorComponent },
   { path: 'estrategia', component: EstrategiaComponent },
   { path: 'perfil',   component: PerfilComponent },
+  { path: 'recuperar', component: RecuperarComponent },
   { path: 'admin',    component: AdminComponent },
   { path: 'registro', component: RegistroComponent },
   { path: 'login',    component: LoginComponent },

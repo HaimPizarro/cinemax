@@ -1,0 +1,28 @@
+/* Añade algo de espacio interno en la card */
+.card-body {
+  padding: 2rem;
+}
+
+/* Subraya labels de campo */
+.fw-semibold {
+  font-weight: 600;
+}
+
+/* Ajustes para inputs de sólo lectura */
+.form-control-plaintext {
+  padding-top: .375rem;
+  padding-bottom: .375rem;
+  margin-bottom: 0;
+}
+
+/* Botones de edición */
+.btn-sm {
+  width: 2.5rem;
+  height: 2.5rem;
+  line-height: 1;
+}
+
+/* Espaciado extra al alternar formularios */
+.editable-row {
+  margin-bottom: 1rem;
+}
