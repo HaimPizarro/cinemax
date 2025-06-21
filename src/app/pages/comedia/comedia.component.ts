@@ -20,7 +20,7 @@ interface Pelicula {
   templateUrl: './comedia.component.html',
 })
 export class ComediaComponent implements OnInit {
-  /** Catálogo fijo; si después lo traes de API, reemplázalo */
+  // Catálogo fijo; si después lo traes de API, reemplázalo
   comediaMovies: Pelicula[] = [
     {
       id: 1,
@@ -51,7 +51,7 @@ export class ComediaComponent implements OnInit {
     },
   ];
 
-  /** Controla si el usuario es cliente */
+  // Controla si el usuario es cliente
   isClient = false;
 
   constructor(
@@ -60,20 +60,19 @@ export class ComediaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Nos suscribimos al estado de sesión
     this.auth.sesion$.subscribe((sesion: Sesion | null) => {
       this.isClient = sesion?.rol === 'cliente';
     });
   }
 
-  /** Calcula precio con descuento aplicado */
+  // Calcula precio con descuento aplicado
   precioFinal(p: Pelicula): number {
     return p.descuento > 0
       ? Math.round(p.precio * (1 - p.descuento / 100))
       : p.precio;
   }
 
-  /** Agrega la película al carrito con título y precio numérico */
+  // Agrega la película al carrito con título y precio numérico
   agregarAlCarrito(p: Pelicula): void {
     const precio = this.precioFinal(p);
     this.cartService.agregarAlCarrito(p.titulo, precio);

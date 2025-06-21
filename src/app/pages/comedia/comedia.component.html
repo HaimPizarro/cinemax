@@ -1,4 +1,4 @@
-<!-- Bienvenida (opcional) -->
+<!-- Bienvenida -->
 <div id="bienvenida-usuario"
      class="alert alert-success alert-dismissible fade show m-0 d-none">
   <div class="container d-flex align-items-center">
@@ -40,7 +40,6 @@
           </h5>
           <p class="card-text flex-grow-1">{{ peli.descripcion }}</p>
 
-          <!-- esto ya sí se mostrará cuando isClient=true -->
           <ng-container *ngIf="isClient">
             <div class="s-price mb-3">
               ${{ precioFinal(peli) | number:'1.0-0' }}

@@ -20,7 +20,7 @@ interface Pelicula {
   templateUrl: './terror.component.html',
 })
 export class TerrorComponent implements OnInit {
-  /** Catálogo fijo de películas de terror */
+  // Catálogo fijo de películas de terror
   terrorMovies: Pelicula[] = [
     {
       id: 1,
@@ -51,7 +51,7 @@ export class TerrorComponent implements OnInit {
     },
   ];
 
-  /** Solo mostramos precio y botón si el usuario es cliente */
+  // Solo mostramos precio y botón si el usuario es cliente
   isClient = false;
 
   constructor(
@@ -66,14 +66,14 @@ export class TerrorComponent implements OnInit {
     });
   }
 
-  /** Precio con descuento redondeado */
+  // Precio con descuento redondeado
   precioFinal(p: Pelicula): number {
     return p.descuento > 0
       ? Math.round(p.precio * (1 - p.descuento / 100))
       : p.precio;
   }
 
-  /** Agrega la película al carrito */
+  // Agrega la película al carrito
   agregarAlCarrito(p: Pelicula): void {
     const precio = this.precioFinal(p);
     this.cartService.agregarAlCarrito(p.titulo, precio);

@@ -30,17 +30,17 @@ export class NavbarComponent {
     });
   }
 
-  /** Abre el diálogo de confirmación */
+  // Abre el diálogo de confirmación
   openLogoutModal() {
     this.showLogoutModal = true;
   }
 
-  /** Cancela el cierre de sesión */
+  // Cancela el cierre de sesión
   cancelLogout() {
     this.showLogoutModal = false;
   }
 
-  /** Confirma y realiza el logout */
+  // Confirma y realiza el logout
   confirmLogout() {
     this.showLogoutModal = false;
     this.auth.logout();

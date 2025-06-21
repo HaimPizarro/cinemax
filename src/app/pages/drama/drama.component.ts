@@ -20,7 +20,7 @@ interface Pelicula {
   templateUrl: './drama.component.html',
 })
 export class DramaComponent implements OnInit {
-  /** Catálogo fijo de películas de drama */
+  // Catálogo fijo de películas de drama
   dramaMovies: Pelicula[] = [
     {
       id: 1,
@@ -57,7 +57,7 @@ export class DramaComponent implements OnInit {
     },
   ];
 
-  /** Controla si el usuario logueado es cliente */
+  // Controla si el usuario logueado es cliente
   isClient = false;
 
   constructor(
@@ -66,20 +66,19 @@ export class DramaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Suscríbete al estado de sesión para actualizar isClient
     this.auth.sesion$.subscribe((sesion: Sesion | null) => {
       this.isClient = sesion?.rol === 'cliente';
     });
   }
 
-  /** Calcula el precio con descuento redondeado */
+  // Calcula el precio con descuento redondeado
   precioFinal(p: Pelicula): number {
     return p.descuento > 0
       ? Math.round(p.precio * (1 - p.descuento / 100))
       : p.precio;
   }
 
-  /** Agrega la peli al carrito pasando título y precio numérico */
+  // Agrega la peli al carrito pasando título y precio numérico
   agregarAlCarrito(p: Pelicula): void {
     const precio = this.precioFinal(p);
     this.cartService.agregarAlCarrito(p.titulo, precio);

@@ -11,9 +11,8 @@ export interface Usuario {
 export class UsuariosService {
   private key = 'usersCineMax';
 
-  /** Sólo se ejecuta la primera vez que no existe la key */
+  // Sólo se ejecuta la primera vez que no existe la key
   private ensureDefaultUsers() {
-    // si ya existe, no hacemos nada
     if (localStorage.getItem(this.key)) {
       return;
     }
@@ -38,7 +37,7 @@ export class UsuariosService {
     localStorage.setItem(this.key, JSON.stringify(initial));
   }
 
-  /** Devuelve todos los usuarios, inicializando sólo si es la primera vez */
+  // Devuelve todos los usuarios, inicializando sólo si es la primera vez
   getAll(): { [key: string]: Usuario } {
     this.ensureDefaultUsers();
     return JSON.parse(localStorage.getItem(this.key) || '{}');

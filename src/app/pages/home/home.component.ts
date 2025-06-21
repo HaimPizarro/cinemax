@@ -15,7 +15,7 @@ interface Categoria {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterModule],  // RouterModule para routerLink
+  imports: [CommonModule, RouterModule],
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
@@ -74,13 +74,10 @@ export class HomeComponent implements OnInit {
       this.esAdmin = sesion?.rol === 'admin';
       this.mostrarRecomendaciones = !!sesion;
 
-      // Solo si hay sesión y el flag está en sessionStorage
       if (sesion && sessionStorage.getItem('showWelcome') === 'true') {
         this.mostrarBienvenida = true;
-        // consumir el flag para no mostrar nunca más
         sessionStorage.removeItem('showWelcome');
 
-        // ocultamos automáticamente tras 4 segundos
         setTimeout(() => {
           this.mostrarBienvenida = false;
         }, 4000);

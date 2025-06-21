@@ -13,7 +13,7 @@ export class CartService {
   private cartSubject = new BehaviorSubject<CartItem[]>(this.obtenerCarrito());
   cart$ = this.cartSubject.asObservable();
 
-  // Nuevo: subject para mensajes
+  //subject para mensajes
   private notifSubject = new Subject<string>();
   notif$ = this.notifSubject.asObservable();
 

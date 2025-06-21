@@ -72,7 +72,7 @@ export class AdminComponent implements OnInit {
   guardarEdicion() {
     if (!this.userEdit) return;
     try {
-      // Validar contraseña nueva si se ingresó
+      // Validar contra nueva si se ingresó
       if (this.editClave || this.editClave2) {
         const passRx = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,18}$/;
         if (!passRx.test(this.editClave)) {

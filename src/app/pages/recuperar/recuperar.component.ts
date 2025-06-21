@@ -70,7 +70,6 @@ export class RecuperarComponent {
       return;
     }
 
-    // Actualiza en "base de datos"
     if (this.targetEmail) {
       const users = this.getAllUsers();
       users[this.targetEmail].clave = clave;
@@ -81,7 +80,6 @@ export class RecuperarComponent {
       this.toastType = 'success';
       this.showToast = true;
 
-      // Después de 2s, ocultar y navegar a login
       setTimeout(() => {
         this.showToast = false;
         this.router.navigate(['/login']);
