@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AuthService, Sesion } from '../../services/auth.services';
 
+/**
+ * Interfaz para representar una categoría de películas.
+ */
 interface Categoria {
   slug: string;
   nombre: string;
@@ -12,6 +15,11 @@ interface Categoria {
   imagen: string;
 }
 
+/**
+ * Componente principal de la página de inicio.
+ * Muestra diferentes secciones según el tipo de usuario (cliente o admin),
+ * incluyendo categorías de películas y tarjetas de estadísticas para administradores.
+ */
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -19,12 +27,19 @@ interface Categoria {
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
+  /** Indica si se debe mostrar un mensaje de bienvenida temporal */
   mostrarBienvenida = false;
+
+  /** Indica si el usuario actual es administrador */
   esAdmin = false;
+
+  /** Indica si se deben mostrar las recomendaciones para usuarios logueados */
   mostrarRecomendaciones = false;
 
+  /** Control interno para no repetir la bienvenida */
   private welcomeShown = false;
 
+  /** Tarjetas informativas solo visibles por administradores */
   adminCards = [
     { valor: 24, texto: 'Usuarios Registrados', bg: 'primary' },
     { valor: 156, texto: 'Películas Disponibles', bg: 'success' },
@@ -32,6 +47,7 @@ export class HomeComponent implements OnInit {
     { valor: 3, texto: 'Reportes Pendientes', bg: 'danger' }
   ];
 
+  /** Lista de categorías de películas disponibles en la plataforma */
   categorias: Categoria[] = [
     {
       slug: 'comedia',
@@ -69,6 +85,12 @@ export class HomeComponent implements OnInit {
 
   constructor(private auth: AuthService) {}
 
+  /**
+   * Al inicializar el componente:
+   * - Se detecta si el usuario es admin.
+   * - Se activa la sección de recomendaciones si hay sesión.
+   * - Si la sesión es nueva, muestra un mensaje de bienvenida temporal.
+   */
   ngOnInit() {
     this.auth.sesion$.subscribe((sesion: Sesion | null) => {
       this.esAdmin = sesion?.rol === 'admin';

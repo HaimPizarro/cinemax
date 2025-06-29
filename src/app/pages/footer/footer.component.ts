@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 
+/**
+ * Componente que representa el pie de página de la aplicación.
+ * Muestra un mensaje de derechos reservados y se posiciona al final de la página.
+ */
 @Component({
   selector: 'app-footer',
   standalone: true,
@@ -12,8 +16,9 @@ import { Component } from '@angular/core';
   `,
   styles: [
     `
+      /* Estilos personalizados del footer */
       footer {
-        flex-shrink: 0;
+        flex-shrink: 0; /* Evita que el footer se reduzca si no hay espacio */
       }
       .bg-dark {
         background-color: #212529 !important;
@@ -26,11 +31,9 @@ import { Component } from '@angular/core';
         padding-bottom: 1.5rem !important;
       }
       .mt-auto {
-        margin-top: auto !important;
+        margin-top: auto !important; /* Empuja el footer al fondo cuando se usa flexbox */
       }
     `
   ]
 })
-export class FooterComponent {
-
-}
+export class FooterComponent {}

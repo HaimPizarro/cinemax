@@ -4,6 +4,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.services';
 
+/**
+ * Componente AdminComponent
+ * Permite a usuarios con rol "admin" gestionar usuarios registrados en la plataforma.
+ */
 @Component({
   selector: 'app-admin',
   standalone: true,
@@ -12,25 +16,29 @@ import { AuthService } from '../../services/auth.services';
   imports: [CommonModule, FormsModule],
 })
 export class AdminComponent implements OnInit {
+  /** Lista de usuarios cargados del servicio */
   usuarios: Usuario[] = [];
+
+  /** Sesión actual del usuario logueado */
   sesion: any = null;
 
-  // Edición modal
+  /** Modal de edición */
   editModalOpen = false;
   userEdit: Usuario | null = null;
   editClave = '';
   editClave2 = '';
   editMsg = '';
 
-  // Eliminación modal
+  /** Modal de eliminación */
   deleteModalOpen = false;
   userToDelete: Usuario | null = null;
 
-  // Snackbar
+  /** Snackbar de mensaje */
   showMsg = false;
   msgText = '';
   msgType: 'success' | 'danger' = 'success';
 
+  /** Control de acceso */
   notAuthorized = false;
 
   constructor(
@@ -38,11 +46,13 @@ export class AdminComponent implements OnInit {
     private auth: AuthService
   ) {}
 
+  /** Método de inicialización. Verifica sesión y carga usuarios si está autorizado. */
   ngOnInit() {
     this.checkSesion();
     this.cargarUsuarios();
   }
 
+  /** Muestra un mensaje flotante en pantalla */
   private displayMessage(text: string, type: 'success' | 'danger') {
     this.msgText = text;
     this.msgType = type;
@@ -50,17 +60,19 @@ export class AdminComponent implements OnInit {
     setTimeout(() => (this.showMsg = false), 3000);
   }
 
+  /** Verifica si el usuario tiene permiso para acceder al panel de administración */
   checkSesion() {
     const raw = sessionStorage.getItem('sesionCineMax');
     this.sesion = raw ? JSON.parse(raw) : null;
     this.notAuthorized = !(this.sesion && this.sesion.rol === 'admin');
   }
 
+  /** Carga los usuarios desde el servicio */
   cargarUsuarios() {
     this.usuarios = Object.values(this.usuariosService.getAll());
   }
 
-  // --- Edición ---
+  /** Abre el modal para editar el usuario seleccionado */
   openEdit(user: Usuario) {
     this.userEdit = { ...user };
     this.editClave = '';
@@ -69,10 +81,13 @@ export class AdminComponent implements OnInit {
     this.editModalOpen = true;
   }
 
+  /**
+   * Guarda los cambios del usuario editado.
+   * Valida contraseñas si se cambiaron.
+   */
   guardarEdicion() {
     if (!this.userEdit) return;
     try {
-      // Validar contra nueva si se ingresó
       if (this.editClave || this.editClave2) {
         const passRx = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,18}$/;
         if (!passRx.test(this.editClave)) {
@@ -102,46 +117,39 @@ export class AdminComponent implements OnInit {
     }
   }
 
+  /** Cierra el modal de edición */
   cerrarModal() {
     this.editModalOpen = false;
   }
 
-  // --- Eliminación ---
+  /** Abre el modal para confirmar eliminación del usuario */
   openDelete(user: Usuario) {
     this.userToDelete = user;
     this.deleteModalOpen = true;
   }
 
+  /** Cancela la eliminación del usuario */
   cancelDelete() {
     this.deleteModalOpen = false;
     this.userToDelete = null;
   }
 
+  /** Elimina al usuario después de confirmación */
+  confirmDelete() {
+    if (!this.userToDelete) return;
 
-confirmDelete() {
-  if (!this.userToDelete) return;
-
-  try {
-    this.usuariosService.delete(this.userToDelete.email);
-
-    this.usuarios = this.usuarios.filter(u => u.email !== this.userToDelete?.email);
-
-    this.cancelDelete();
-    this.displayMessage('Usuario eliminado exitosamente', 'success');
-  } catch (e) {
-    this.cargarUsuarios();
-    this.displayMessage('Error al eliminar usuario', 'danger');
-  }
-}
-
-
-  // Llamamos openDelete en lugar de confirm()
-  eliminarUsuario(user: Usuario) {
-    if (user.email === this.sesion?.email) return;
-    this.openDelete(user);
+    try {
+      this.usuariosService.delete(this.userToDelete.email);
+      this.usuarios = this.usuarios.filter(u => u.email !== this.userToDelete?.email);
+      this.cancelDelete();
+      this.displayMessage('Usuario eliminado exitosamente', 'success');
+    } catch (e) {
+      this.cargarUsuarios();
+      this.displayMessage('Error al eliminar usuario', 'danger');
+    }
   }
 
-  // --- Logout ---
+  /** Cierra sesión del usuario administrador */
   logout() {
     if (confirm('¿Cerrar sesión?')) {
       sessionStorage.removeItem('sesionCineMax');

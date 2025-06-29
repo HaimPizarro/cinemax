@@ -1,0 +1,897 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cinemax documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cinemax documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  EstrategiaComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pages/estrategia/estrategia.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Componente que muestra el catálogo de películas del género estrategia.
+Solo los usuarios con rol &#39;cliente&#39; pueden agregar productos al carrito.</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-estrategia</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./estrategia.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#estrategiaMovies" >estrategiaMovies</a>
+                            </li>
+                            <li>
+                                <a href="#isClient" >isClient</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#agregarAlCarrito" >agregarAlCarrito</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#precioFinal" >precioFinal</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(cartService: <a href="../injectables/CartService.html" target="_self">CartService</a>, auth: <a href="../injectables/AuthService.html" target="_self">AuthService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/app/pages/estrategia/estrategia.component.ts:71</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>cartService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/CartService.html" target="_self" >CartService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>auth</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="agregarAlCarrito"></a>
+                    <span class="name">
+                        <span ><b>agregarAlCarrito</b></span>
+                        <a href="#agregarAlCarrito"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>agregarAlCarrito(p: <a href="../interfaces/Pelicula.html" target="_self">Pelicula</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="103"
+                                    class="link-to-prism">src/app/pages/estrategia/estrategia.component.ts:103</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Agrega la película seleccionada al carrito de compras.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>p</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Pelicula.html" target="_self" >Pelicula</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Película a agregar</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="82"
+                                    class="link-to-prism">src/app/pages/estrategia/estrategia.component.ts:82</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Al iniciar el componente, se verifica si el usuario tiene rol de cliente
+para habilitar funciones como agregar al carrito.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="precioFinal"></a>
+                    <span class="name">
+                        <span ><b>precioFinal</b></span>
+                        <a href="#precioFinal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>precioFinal(p: <a href="../interfaces/Pelicula.html" target="_self">Pelicula</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="93"
+                                    class="link-to-prism">src/app/pages/estrategia/estrategia.component.ts:93</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Calcula el precio final aplicando el descuento correspondiente.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>p</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Pelicula.html" target="_self" >Pelicula</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Película seleccionada</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Precio con descuento redondeado</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="estrategiaMovies"></a>
+                    <span class="name">
+                        <span ><b>estrategiaMovies</b></span>
+                        <a href="#estrategiaMovies"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Pelicula[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    {
+      id: 1,
+      titulo: &#x27;Top Gun: Maverick&#x27;,
+      anio: 2022,
+      descripcion: &#x27;Maverick entrena a una nueva generación de pilotos…&#x27;,
+      precio: 12990,
+      descuento: 20,
+      imagen:
+        &#x27;https://light.pawa.cl/img/2022/06/12014901/1653297680_702523_1653300885_noticia_normal.jpg&#x27;,
+    },
+    {
+      id: 2,
+      titulo: &#x27;John Wick 4&#x27;,
+      anio: 2023,
+      descripcion: &#x27;John Wick se enfrenta a un nuevo enemigo para obtener su libertad.&#x27;,
+      precio: 15990,
+      descuento: 0,
+      imagen:
+        &#x27;https://miro.medium.com/v2/resize:fit:1400/1*7P6HwA3O6AnzxfbdHvtZVA.jpeg&#x27;,
+    },
+    {
+      id: 3,
+      titulo: &#x27;Rápidos y Furiosos X&#x27;,
+      anio: 2023,
+      descripcion: &#x27;La familia Toretto enfrenta a su enemigo más letal.&#x27;,
+      precio: 14990,
+      descuento: 10,
+      imagen:
+        &#x27;https://m.media-amazon.com/images/S/pv-target-images/8fd9d8b072906d80bbf485978430e97f7033a08d111a459727bb5c720ad37471.jpg&#x27;,
+    },
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/pages/estrategia/estrategia.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Lista estática de películas de estrategia.
+Esta información puede ser reemplazada por datos dinámicos en el futuro.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isClient"></a>
+                    <span class="name">
+                        <span ><b>isClient</b></span>
+                        <a href="#isClient"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/app/pages/estrategia/estrategia.component.ts:71</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Bandera que indica si el usuario logueado es cliente.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { CartService } from &#x27;../../services/cart.services&#x27;;
+import { AuthService, Sesion } from &#x27;../../services/auth.services&#x27;;
+
+/**
+ * Interfaz que representa los datos de una película.
+ */
+interface Pelicula {
+  id: number;
+  titulo: string;
+  anio: number;
+  descripcion: string;
+  precio: number;
+  descuento: number;
+  imagen: string;
+}
+
+/**
+ * Componente que muestra el catálogo de películas del género estrategia.
+ * Solo los usuarios con rol &#x27;cliente&#x27; pueden agregar productos al carrito.
+ */
+@Component({
+  selector: &#x27;app-estrategia&#x27;,
+  standalone: true,
+  templateUrl: &#x27;./estrategia.component.html&#x27;,
+  imports: [CommonModule],
+})
+export class EstrategiaComponent implements OnInit {
+
+  /**
+   * Lista estática de películas de estrategia.
+   * Esta información puede ser reemplazada por datos dinámicos en el futuro.
+   */
+  estrategiaMovies: Pelicula[] &#x3D; [
+    {
+      id: 1,
+      titulo: &#x27;Top Gun: Maverick&#x27;,
+      anio: 2022,
+      descripcion: &#x27;Maverick entrena a una nueva generación de pilotos…&#x27;,
+      precio: 12990,
+      descuento: 20,
+      imagen:
+        &#x27;https://light.pawa.cl/img/2022/06/12014901/1653297680_702523_1653300885_noticia_normal.jpg&#x27;,
+    },
+    {
+      id: 2,
+      titulo: &#x27;John Wick 4&#x27;,
+      anio: 2023,
+      descripcion: &#x27;John Wick se enfrenta a un nuevo enemigo para obtener su libertad.&#x27;,
+      precio: 15990,
+      descuento: 0,
+      imagen:
+        &#x27;https://miro.medium.com/v2/resize:fit:1400/1*7P6HwA3O6AnzxfbdHvtZVA.jpeg&#x27;,
+    },
+    {
+      id: 3,
+      titulo: &#x27;Rápidos y Furiosos X&#x27;,
+      anio: 2023,
+      descripcion: &#x27;La familia Toretto enfrenta a su enemigo más letal.&#x27;,
+      precio: 14990,
+      descuento: 10,
+      imagen:
+        &#x27;https://m.media-amazon.com/images/S/pv-target-images/8fd9d8b072906d80bbf485978430e97f7033a08d111a459727bb5c720ad37471.jpg&#x27;,
+    },
+  ];
+
+  /**
+   * Bandera que indica si el usuario logueado es cliente.
+   */
+  isClient &#x3D; false;
+
+  constructor(
+    private cartService: CartService,
+    private auth: AuthService
+  ) {}
+
+  /**
+   * Al iniciar el componente, se verifica si el usuario tiene rol de cliente
+   * para habilitar funciones como agregar al carrito.
+   */
+  ngOnInit(): void {
+    this.auth.sesion$.subscribe((sesion: Sesion | null) &#x3D;&gt; {
+      this.isClient &#x3D; sesion?.rol &#x3D;&#x3D;&#x3D; &#x27;cliente&#x27;;
+    });
+  }
+
+  /**
+   * Calcula el precio final aplicando el descuento correspondiente.
+   * @param p Película seleccionada
+   * @returns Precio con descuento redondeado
+   */
+  precioFinal(p: Pelicula): number {
+    return p.descuento &gt; 0
+      ? Math.round(p.precio * (1 - p.descuento / 100))
+      : p.precio;
+  }
+
+  /**
+   * Agrega la película seleccionada al carrito de compras.
+   * @param p Película a agregar
+   */
+  agregarAlCarrito(p: Pelicula): void {
+    const precio &#x3D; this.precioFinal(p);
+    this.cartService.agregarAlCarrito(p.titulo, precio);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- HERO Estrategia --&gt;
+&lt;header class&#x3D;&quot;py-5 text-center hero-drama shadow-sm&quot;&gt;
+  &lt;div class&#x3D;&quot;container&quot;&gt;
+    &lt;h1 class&#x3D;&quot;fw-bold display-5&quot;&gt;Películas de Estrategia 🧠&lt;/h1&gt;
+    &lt;p class&#x3D;&quot;lead&quot;&gt;Planifica tu próxima jugada con nuestra selección estratégica.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/header&gt;
+
+&lt;!-- LISTADO DINÁMICO --&gt;
+&lt;main class&#x3D;&quot;container py-5&quot;&gt;
+  &lt;div class&#x3D;&quot;row row-cols-1 row-cols-md-3 g-4 fade-up&quot;&gt;
+    &lt;div class&#x3D;&quot;col&quot; *ngFor&#x3D;&quot;let peli of estrategiaMovies&quot;&gt;
+      &lt;div class&#x3D;&quot;card h-100 shadow-sm border-0 position-relative&quot;&gt;
+
+        &lt;!-- Badge de descuento --&gt;
+        &lt;span *ngIf&#x3D;&quot;peli.descuento &gt; 0&quot;
+              class&#x3D;&quot;badge bg-danger badge-discount&quot;&gt;
+          -{{ peli.descuento }}%
+        &lt;/span&gt;
+
+        &lt;!-- Imagen --&gt;
+        &lt;div class&#x3D;&quot;ratio ratio-4x3&quot;&gt;
+          &lt;img [src]&#x3D;&quot;peli.imagen&quot;
+               [alt]&#x3D;&quot;peli.titulo&quot;
+               class&#x3D;&quot;card-img-top object-fit-cover rounded-top&quot; /&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Cuerpo --&gt;
+        &lt;div class&#x3D;&quot;card-body d-flex flex-column text-center&quot;&gt;
+          &lt;h5 class&#x3D;&quot;card-title fw-semibold&quot;&gt;
+            {{ peli.titulo }} ({{ peli.anio }})
+          &lt;/h5&gt;
+          &lt;p class&#x3D;&quot;card-text flex-grow-1&quot;&gt;{{ peli.descripcion }}&lt;/p&gt;
+
+          &lt;!-- Precio + botón solo para clientes --&gt;
+          &lt;ng-container *ngIf&#x3D;&quot;isClient&quot;&gt;
+            &lt;div class&#x3D;&quot;s-price mb-3&quot;&gt;
+              ${{ precioFinal(peli) | number:&#x27;1.0-0&#x27; }}
+            &lt;/div&gt;
+            &lt;button class&#x3D;&quot;btn btn-brand w-100 mt-auto&quot;
+                    (click)&#x3D;&quot;agregarAlCarrito(peli)&quot;&gt;
+              Agregar al carrito
+            &lt;/button&gt;
+          &lt;/ng-container&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/main&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- HERO Estrategia --><header class="py-5 text-center hero-drama shadow-sm">  <div class="container">    <h1 class="fw-bold display-5">Películas de Estrategia 🧠</h1>    <p class="lead">Planifica tu próxima jugada con nuestra selección estratégica.</p>  </div></header><!-- LISTADO DINÁMICO --><main class="container py-5">  <div class="row row-cols-1 row-cols-md-3 g-4 fade-up">    <div class="col" *ngFor="let peli of estrategiaMovies">      <div class="card h-100 shadow-sm border-0 position-relative">        <!-- Badge de descuento -->        <span *ngIf="peli.descuento > 0"              class="badge bg-danger badge-discount">          -{{ peli.descuento }}%        </span>        <!-- Imagen -->        <div class="ratio ratio-4x3">          <img [src]="peli.imagen"               [alt]="peli.titulo"               class="card-img-top object-fit-cover rounded-top" />        </div>        <!-- Cuerpo -->        <div class="card-body d-flex flex-column text-center">          <h5 class="card-title fw-semibold">            {{ peli.titulo }} ({{ peli.anio }})          </h5>          <p class="card-text flex-grow-1">{{ peli.descripcion }}</p>          <!-- Precio + botón solo para clientes -->          <ng-container *ngIf="isClient">            <div class="s-price mb-3">              ${{ precioFinal(peli) | number:\'1.0-0\' }}            </div>            <button class="btn btn-brand w-100 mt-auto"                    (click)="agregarAlCarrito(peli)">              Agregar al carrito            </button>          </ng-container>        </div>      </div>    </div>  </div></main></div>'
+    var COMPONENTS = [{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CartComponent', 'selector': 'app-cart'},{'name': 'ComediaComponent', 'selector': 'app-comedia'},{'name': 'DramaComponent', 'selector': 'app-drama'},{'name': 'EstrategiaComponent', 'selector': 'app-estrategia'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PerfilComponent', 'selector': 'app-perfil'},{'name': 'RecuperarComponent', 'selector': 'app-recuperar'},{'name': 'RegistroComponent', 'selector': 'app-registro'},{'name': 'TerrorComponent', 'selector': 'app-terror'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'EstrategiaComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'EstrategiaComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

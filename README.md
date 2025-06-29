@@ -1,27 +1,49 @@
-# Cinemax
+# 🎬 CineMax
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.6.
+**CineMax** es una aplicación web construida con Angular que simula una plataforma de arriendo de películas en línea. Permite a usuarios registrados navegar por distintas categorías, añadir películas al carrito, modificar su perfil y administrar su sesión. Cuenta con funcionalidades diferenciadas para usuarios **admin** y **cliente**.
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Tecnologías Utilizadas
 
-## Code scaffolding
+- **Angular 17+**  
+- **TypeScript**  
+- **RxJS**  
+- **Bootstrap 5** + CSS personalizado  
+- **LocalStorage / SessionStorage** para persistencia  
+- **Jasmine + Karma** para testing  
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+---
 
-## Build
+## Funcionalidades
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Gestión de Usuarios
+- **Registro** con validaciones de email, contraseña (6–18 caracteres, al menos 1 mayúscula y 1 dígito) y edad mínima (13 años).  
+- **Inicio de sesión** con `AuthService` y opción “recordar usuario”.  
+- **Recuperación de contraseña** en dos pasos, con validación y notificación vía toast.  
+- **Perfil**: visualizar y editar nombre o contraseña, con mensajes de éxito/fracaso.  
+- **Roles**:  
+  - **cliente**: puede ver precios, agregar al carrito y comprar.  
+  - **admin**: accede a un panel de gestión de usuarios (editar/eliminar) y visualiza métricas simuladas.
 
-## Running unit tests
+### Catálogo de Películas
+- Cuatro géneros (Comedia, Drama, Terror, Estrategia), cada uno con tarjetas que muestran título, año, descripción, badge de descuento, precio final y botón “Agregar al carrito” (solo para clientes).
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Carrito de Compras
+- Persistido en **localStorage**, desplegado en un offcanvas desde la navbar.  
+- Lista productos, cantidades, precio total y botón “Ir a pagar”.  
+- Toasts de notificación (“Película agregada”, “Película quitada”).
 
-## Running end-to-end tests
+### Persistencia y Sesión
+- **SessionStorage** para la sesión activa.  
+- **LocalStorage** para usuarios, carrito y “recordar usuario”.  
+- Servicios Angular (`AuthService`, `UsuariosService`, `CartService`) utilizan **BehaviorSubject** y **Subject** para flujos reactivos.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+---
 
-## Further help
+## Instalación y Ejecución
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1. Clonar el repo:  
+   ```bash
+   git clone https://github.com/tu-usuario/cinemax.git
+   cd cinemax

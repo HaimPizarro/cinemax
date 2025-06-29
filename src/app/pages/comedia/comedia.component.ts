@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule }      from '@angular/common';
-import { CartService }       from '../../services/cart.services';
+import { CommonModule } from '@angular/common';
+import { CartService } from '../../services/cart.services';
 import { AuthService, Sesion } from '../../services/auth.services';
 
+/**
+ * Interfaz que representa los datos de una película.
+ */
 interface Pelicula {
   id: number;
   titulo: string;
@@ -13,14 +16,22 @@ interface Pelicula {
   imagen: string;
 }
 
+/**
+ * Componente que muestra un catálogo de películas de comedia.
+ * Permite agregar películas al carrito de compras si el usuario es cliente.
+ */
 @Component({
   selector: 'app-comedia',
   standalone: true,
-  imports: [CommonModule],
   templateUrl: './comedia.component.html',
+  imports: [CommonModule],
 })
 export class ComediaComponent implements OnInit {
-  // Catálogo fijo; si después lo traes de API, reemplázalo
+
+  /**
+   * Lista fija de películas de comedia.
+   * Si luego se conecta a una API, este arreglo se puede reemplazar.
+   */
   comediaMovies: Pelicula[] = [
     {
       id: 1,
@@ -51,7 +62,10 @@ export class ComediaComponent implements OnInit {
     },
   ];
 
-  // Controla si el usuario es cliente
+  /**
+   * Indica si el usuario tiene rol de cliente.
+   * Solo los clientes pueden agregar al carrito.
+   */
   isClient = false;
 
   constructor(
@@ -59,20 +73,30 @@ export class ComediaComponent implements OnInit {
     private auth: AuthService
   ) {}
 
+  /**
+   * Verifica si la sesión actual es de un cliente.
+   */
   ngOnInit(): void {
     this.auth.sesion$.subscribe((sesion: Sesion | null) => {
       this.isClient = sesion?.rol === 'cliente';
     });
   }
 
-  // Calcula precio con descuento aplicado
+  /**
+   * Calcula el precio final de una película aplicando descuento si existe.
+   * @param p Película
+   * @returns Precio con descuento aplicado
+   */
   precioFinal(p: Pelicula): number {
     return p.descuento > 0
       ? Math.round(p.precio * (1 - p.descuento / 100))
       : p.precio;
   }
 
-  // Agrega la película al carrito con título y precio numérico
+  /**
+   * Agrega una película al carrito con su título y precio final.
+   * @param p Película a agregar
+   */
   agregarAlCarrito(p: Pelicula): void {
     const precio = this.precioFinal(p);
     this.cartService.agregarAlCarrito(p.titulo, precio);

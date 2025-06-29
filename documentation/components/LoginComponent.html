@@ -1,0 +1,878 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cinemax documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cinemax documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  LoginComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pages/login/login.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Componente de inicio de sesión.
+Permite al usuario ingresar su email y contraseña,
+validar credenciales, y redirigir según el rol.</p>
+
+    </p>
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-login</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>ReactiveFormsModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./login.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./login.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#errorMsg" >errorMsg</a>
+                            </li>
+                            <li>
+                                <a href="#loginForm" >loginForm</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#onSubmit" >onSubmit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#emailInv" >emailInv</a>
+                                </li>
+                                <li>
+                                    <a href="#passwordInv" >passwordInv</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(fb: FormBuilder, usuariosService: <a href="../injectables/UsuariosService.html" target="_self">UsuariosService</a>, auth: <a href="../injectables/AuthService.html" target="_self">AuthService</a>, router: Router)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/pages/login/login.component.ts:25</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>fb</td>
+                                                  
+                                                        <td>
+                                                                    <code>FormBuilder</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>usuariosService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UsuariosService.html" target="_self" >UsuariosService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>auth</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSubmit"></a>
+                    <span class="name">
+                        <span ><b>onSubmit</b></span>
+                        <a href="#onSubmit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onSubmit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="55"
+                                    class="link-to-prism">src/app/pages/login/login.component.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Método ejecutado al enviar el formulario.
+Verifica credenciales, guarda sesión y redirige.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="errorMsg"></a>
+                    <span class="name">
+                        <span ><b>errorMsg</b></span>
+                        <a href="#errorMsg"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/pages/login/login.component.ts:25</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Mensaje de error visible en la interfaz</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loginForm"></a>
+                    <span class="name">
+                        <span ><b>loginForm</b></span>
+                        <a href="#loginForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/pages/login/login.component.ts:22</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Formulario reactivo de inicio de sesión</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="emailInv"></a>
+                        <span class="name"><b>emailInv</b><a href="#emailInv"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>emailInv()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/pages/login/login.component.ts:42</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Valida si el campo email es inválido y ha sido tocado</p>
+</div>
+
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="passwordInv"></a>
+                        <span class="name"><b>passwordInv</b><a href="#passwordInv"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>passwordInv()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/pages/login/login.component.ts:47</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Valida si el campo contraseña es inválido y ha sido tocado</p>
+</div>
+
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+import { FormBuilder, Validators, ReactiveFormsModule } from &#x27;@angular/forms&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import { UsuariosService } from &#x27;../../services/usuarios.services&#x27;;
+import { AuthService } from &#x27;../../services/auth.services&#x27;;
+
+/**
+ * Componente de inicio de sesión.
+ * Permite al usuario ingresar su email y contraseña,
+ * validar credenciales, y redirigir según el rol.
+ */
+@Component({
+  selector: &#x27;app-login&#x27;,
+  standalone: true,
+  templateUrl: &#x27;./login.component.html&#x27;,
+  styleUrls: [&#x27;./login.component.css&#x27;],
+  imports: [CommonModule, ReactiveFormsModule]
+})
+export class LoginComponent {
+  /** Formulario reactivo de inicio de sesión */
+  loginForm;
+
+  /** Mensaje de error visible en la interfaz */
+  errorMsg: string | null &#x3D; null;
+
+  constructor(
+    private fb: FormBuilder,
+    private usuariosService: UsuariosService,
+    private auth: AuthService,
+    private router: Router
+  ) {
+    // Inicializa los controles del formulario
+    this.loginForm &#x3D; this.fb.group({
+      email: [&#x27;&#x27;, [Validators.required, Validators.email]],
+      password: [&#x27;&#x27;, [Validators.required]],
+      recordar: [false]
+    });
+  }
+
+  /** Valida si el campo email es inválido y ha sido tocado */
+  get emailInv() {
+    return this.loginForm.get(&#x27;email&#x27;)?.invalid &amp;&amp; this.loginForm.get(&#x27;email&#x27;)?.touched;
+  }
+
+  /** Valida si el campo contraseña es inválido y ha sido tocado */
+  get passwordInv() {
+    return this.loginForm.get(&#x27;password&#x27;)?.invalid &amp;&amp; this.loginForm.get(&#x27;password&#x27;)?.touched;
+  }
+
+  /**
+   * Método ejecutado al enviar el formulario.
+   * Verifica credenciales, guarda sesión y redirige.
+   */
+  onSubmit() {
+    this.errorMsg &#x3D; null;
+
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      this.errorMsg &#x3D; &#x27;Por favor completa los datos correctamente.&#x27;;
+      return;
+    }
+
+    const email &#x3D; (this.loginForm.value.email ?? &#x27;&#x27;).trim().toLowerCase();
+    const pass  &#x3D; (this.loginForm.value.password ?? &#x27;&#x27;).trim();
+
+    const user &#x3D; this.usuariosService.get(email);
+
+    if (!user || user.clave !&#x3D;&#x3D; pass) {
+      this.errorMsg &#x3D; &#x27;Credenciales incorrectas. Verifica tu email y contraseña.&#x27;;
+      this.loginForm.get(&#x27;email&#x27;)?.setErrors({ incorrect: true });
+      this.loginForm.get(&#x27;password&#x27;)?.setErrors({ incorrect: true });
+      return;
+    }
+
+    // Construye el objeto de sesión
+    const sesion &#x3D; {
+      email: user.email,
+      rol: user.rol,
+      nombre: user.nombre,
+      fechaLogin: new Date().toISOString()
+    };
+
+    // Guarda sesión en sessionStorage
+    sessionStorage.setItem(&#x27;sesionCineMax&#x27;, JSON.stringify(sesion));
+
+    // Si se seleccionó &quot;recordar&quot;, guarda el email en localStorage
+    if (this.loginForm.value.recordar) {
+      localStorage.setItem(&#x27;recordarUsuario&#x27;, email);
+    } else {
+      localStorage.removeItem(&#x27;recordarUsuario&#x27;);
+    }
+
+    this.auth.login(sesion);
+    sessionStorage.setItem(&#x27;showWelcome&#x27;, &#x27;true&#x27;);
+
+    // Redirige según el rol del usuario
+    this.router.navigate([user.rol &#x3D;&#x3D;&#x3D; &#x27;admin&#x27; ? &#x27;/admin&#x27; : &#x27;/&#x27;]);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;main class&#x3D;&quot;login-container flex-grow-1&quot;&gt;
+  &lt;div class&#x3D;&quot;login-card row g-0&quot;&gt;
+    &lt;!-- Columna izquierda --&gt;
+    &lt;div class&#x3D;&quot;col-lg-5 login-left&quot;&gt;
+      &lt;h2 class&#x3D;&quot;mb-3&quot;&gt;🎬 Bienvenido a CineMax&lt;/h2&gt;
+      &lt;p class&#x3D;&quot;mb-4&quot;&gt;Accede con tu cuenta para disfrutar de la mejor experiencia cinematográfica.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Columna derecha: Formulario --&gt;
+    &lt;div class&#x3D;&quot;col-lg-7 login-form&quot;&gt;
+      &lt;h3 class&#x3D;&quot;mb-4 text-center&quot;&gt;Iniciar Sesión&lt;/h3&gt;
+      &lt;form [formGroup]&#x3D;&quot;loginForm&quot; (ngSubmit)&#x3D;&quot;onSubmit()&quot; novalidate&gt;
+        &lt;div class&#x3D;&quot;mb-3&quot;&gt;
+          &lt;label for&#x3D;&quot;email&quot; class&#x3D;&quot;form-label&quot;&gt;Correo Electrónico&lt;/label&gt;
+          &lt;input type&#x3D;&quot;email&quot;
+                 formControlName&#x3D;&quot;email&quot;
+                 class&#x3D;&quot;form-control&quot;
+                 [class.is-invalid]&#x3D;&quot;emailInv&quot;
+                 id&#x3D;&quot;email&quot;
+                 placeholder&#x3D;&quot;tu@email.com&quot;
+                 required /&gt;
+          &lt;div class&#x3D;&quot;invalid-feedback&quot;&gt;
+            Ingresa un correo válido.
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;mb-3&quot;&gt;
+          &lt;label for&#x3D;&quot;password&quot; class&#x3D;&quot;form-label&quot;&gt;Contraseña&lt;/label&gt;
+          &lt;input type&#x3D;&quot;password&quot;
+                 formControlName&#x3D;&quot;password&quot;
+                 class&#x3D;&quot;form-control&quot;
+                 [class.is-invalid]&#x3D;&quot;passwordInv&quot;
+                 id&#x3D;&quot;password&quot;
+                 placeholder&#x3D;&quot;••••••••&quot;
+                 required /&gt;
+          &lt;div class&#x3D;&quot;invalid-feedback&quot;&gt;
+            Ingresa tu contraseña.
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;mb-3 form-check&quot;&gt;
+          &lt;input type&#x3D;&quot;checkbox&quot;
+                 formControlName&#x3D;&quot;recordar&quot;
+                 class&#x3D;&quot;form-check-input&quot;
+                 id&#x3D;&quot;recordar&quot; /&gt;
+          &lt;label class&#x3D;&quot;form-check-label&quot; for&#x3D;&quot;recordar&quot;&gt;Recordar mis datos&lt;/label&gt;
+        &lt;/div&gt;
+
+        &lt;button type&#x3D;&quot;submit&quot; class&#x3D;&quot;btn btn-brand w-100 py-2 mb-3&quot;&gt;Iniciar Sesión&lt;/button&gt;
+
+        &lt;div *ngIf&#x3D;&quot;errorMsg&quot; class&#x3D;&quot;alert alert-danger mt-2 text-center&quot;&gt;{{ errorMsg }}&lt;/div&gt;
+      &lt;/form&gt;
+      &lt;div class&#x3D;&quot;text-center mt-3&quot;&gt;
+        &lt;p&gt;¿No tienes cuenta? &lt;a href&#x3D;&quot;/registro&quot;&gt;Regístrate aquí&lt;/a&gt;&lt;/p&gt;
+        &lt;a href&#x3D;&quot;/recuperar&quot; class&#x3D;&quot;small&quot;&gt;¿Olvidaste tu contraseña?&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/main&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./login.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">/* ---- CineMax Login Styles ---- */
+
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.login-card {
+  max-width: 900px;
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .1);
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.login-left {
+  background: #563dff;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem 2rem;
+}
+
+.login-left h2 {
+  font-weight: 700;
+}
+
+.login-form {
+  padding: 3rem;
+}
+
+.form-control {
+  border-radius: 10px;
+  border: 2px solid #e9ecef;
+  padding: .75rem 1rem;
+  transition: border-color .3s, box-shadow .3s;
+}
+
+.form-control:focus {
+  border-color: #563dff;
+  box-shadow: 0 0 0 .2rem rgba(86, 61, 255, .25);
+}
+
+@media (max-width: 768px) {
+  .login-form,
+  .login-left {
+    padding: 2rem;
+  }
+  .login-card {
+    margin: 1rem;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><main class="login-container flex-grow-1">  <div class="login-card row g-0">    <!-- Columna izquierda -->    <div class="col-lg-5 login-left">      <h2 class="mb-3">🎬 Bienvenido a CineMax</h2>      <p class="mb-4">Accede con tu cuenta para disfrutar de la mejor experiencia cinematográfica.</p>    </div>    <!-- Columna derecha: Formulario -->    <div class="col-lg-7 login-form">      <h3 class="mb-4 text-center">Iniciar Sesión</h3>      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>        <div class="mb-3">          <label for="email" class="form-label">Correo Electrónico</label>          <input type="email"                 formControlName="email"                 class="form-control"                 [class.is-invalid]="emailInv"                 id="email"                 placeholder="tu@email.com"                 required />          <div class="invalid-feedback">            Ingresa un correo válido.          </div>        </div>        <div class="mb-3">          <label for="password" class="form-label">Contraseña</label>          <input type="password"                 formControlName="password"                 class="form-control"                 [class.is-invalid]="passwordInv"                 id="password"                 placeholder="••••••••"                 required />          <div class="invalid-feedback">            Ingresa tu contraseña.          </div>        </div>        <div class="mb-3 form-check">          <input type="checkbox"                 formControlName="recordar"                 class="form-check-input"                 id="recordar" />          <label class="form-check-label" for="recordar">Recordar mis datos</label>        </div>        <button type="submit" class="btn btn-brand w-100 py-2 mb-3">Iniciar Sesión</button>        <div *ngIf="errorMsg" class="alert alert-danger mt-2 text-center">{{ errorMsg }}</div>      </form>      <div class="text-center mt-3">        <p>¿No tienes cuenta? <a href="/registro">Regístrate aquí</a></p>        <a href="/recuperar" class="small">¿Olvidaste tu contraseña?</a>      </div>    </div>  </div></main></div>'
+    var COMPONENTS = [{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CartComponent', 'selector': 'app-cart'},{'name': 'ComediaComponent', 'selector': 'app-comedia'},{'name': 'DramaComponent', 'selector': 'app-drama'},{'name': 'EstrategiaComponent', 'selector': 'app-estrategia'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PerfilComponent', 'selector': 'app-perfil'},{'name': 'RecuperarComponent', 'selector': 'app-recuperar'},{'name': 'RegistroComponent', 'selector': 'app-registro'},{'name': 'TerrorComponent', 'selector': 'app-terror'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'LoginComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'LoginComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

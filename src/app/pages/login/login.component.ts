@@ -5,7 +5,11 @@ import { Router } from '@angular/router';
 import { UsuariosService } from '../../services/usuarios.services';
 import { AuthService } from '../../services/auth.services';
 
-
+/**
+ * Componente de inicio de sesión.
+ * Permite al usuario ingresar su email y contraseña,
+ * validar credenciales, y redirigir según el rol.
+ */
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -14,7 +18,10 @@ import { AuthService } from '../../services/auth.services';
   imports: [CommonModule, ReactiveFormsModule]
 })
 export class LoginComponent {
+  /** Formulario reactivo de inicio de sesión */
   loginForm;
+
+  /** Mensaje de error visible en la interfaz */
   errorMsg: string | null = null;
 
   constructor(
@@ -23,6 +30,7 @@ export class LoginComponent {
     private auth: AuthService,
     private router: Router
   ) {
+    // Inicializa los controles del formulario
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
@@ -30,11 +38,23 @@ export class LoginComponent {
     });
   }
 
-  get emailInv()    { return this.loginForm.get('email')?.invalid && this.loginForm.get('email')?.touched; }
-  get passwordInv() { return this.loginForm.get('password')?.invalid && this.loginForm.get('password')?.touched; }
+  /** Valida si el campo email es inválido y ha sido tocado */
+  get emailInv() {
+    return this.loginForm.get('email')?.invalid && this.loginForm.get('email')?.touched;
+  }
 
+  /** Valida si el campo contraseña es inválido y ha sido tocado */
+  get passwordInv() {
+    return this.loginForm.get('password')?.invalid && this.loginForm.get('password')?.touched;
+  }
+
+  /**
+   * Método ejecutado al enviar el formulario.
+   * Verifica credenciales, guarda sesión y redirige.
+   */
   onSubmit() {
     this.errorMsg = null;
+
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
       this.errorMsg = 'Por favor completa los datos correctamente.';
@@ -53,13 +73,18 @@ export class LoginComponent {
       return;
     }
 
+    // Construye el objeto de sesión
     const sesion = {
       email: user.email,
       rol: user.rol,
       nombre: user.nombre,
       fechaLogin: new Date().toISOString()
     };
+
+    // Guarda sesión en sessionStorage
     sessionStorage.setItem('sesionCineMax', JSON.stringify(sesion));
+
+    // Si se seleccionó "recordar", guarda el email en localStorage
     if (this.loginForm.value.recordar) {
       localStorage.setItem('recordarUsuario', email);
     } else {
@@ -68,6 +93,8 @@ export class LoginComponent {
 
     this.auth.login(sesion);
     sessionStorage.setItem('showWelcome', 'true');
+
+    // Redirige según el rol del usuario
     this.router.navigate([user.rol === 'admin' ? '/admin' : '/']);
   }
 }

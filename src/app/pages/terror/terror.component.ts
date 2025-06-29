@@ -3,6 +3,9 @@ import { CommonModule }      from '@angular/common';
 import { CartService }       from '../../services/cart.services';
 import { AuthService, Sesion } from '../../services/auth.services';
 
+/**
+ * Modelo de una película utilizada en el catálogo
+ */
 interface Pelicula {
   id: number;
   titulo: string;
@@ -13,6 +16,10 @@ interface Pelicula {
   imagen: string;
 }
 
+/**
+ * Componente que muestra las películas del género Terror.
+ * Permite agregarlas al carrito si el usuario tiene rol de cliente.
+ */
 @Component({
   selector: 'app-terror',
   standalone: true,
@@ -20,7 +27,7 @@ interface Pelicula {
   templateUrl: './terror.component.html',
 })
 export class TerrorComponent implements OnInit {
-  // Catálogo fijo de películas de terror
+  /** Lista fija de películas del género Terror */
   terrorMovies: Pelicula[] = [
     {
       id: 1,
@@ -51,7 +58,7 @@ export class TerrorComponent implements OnInit {
     },
   ];
 
-  // Solo mostramos precio y botón si el usuario es cliente
+  /** Determina si el usuario actual tiene rol de cliente */
   isClient = false;
 
   constructor(
@@ -59,21 +66,32 @@ export class TerrorComponent implements OnInit {
     private auth: AuthService
   ) {}
 
+  /**
+   * Se ejecuta al inicializar el componente.
+   * Determina si el usuario actual tiene permiso para ver precios y comprar.
+   */
   ngOnInit(): void {
-    // Nos suscribimos al estado de sesión
+    // Suscribirse al estado de sesión
     this.auth.sesion$.subscribe((sesion: Sesion | null) => {
       this.isClient = sesion?.rol === 'cliente';
     });
   }
 
-  // Precio con descuento redondeado
+  /**
+   * Calcula el precio final de una película, aplicando el descuento si corresponde.
+   * @param p Película a evaluar
+   * @returns Precio final con descuento
+   */
   precioFinal(p: Pelicula): number {
     return p.descuento > 0
       ? Math.round(p.precio * (1 - p.descuento / 100))
       : p.precio;
   }
 
-  // Agrega la película al carrito
+  /**
+   * Agrega una película al carrito de compras con su título y precio calculado.
+   * @param p Película a agregar
+   */
   agregarAlCarrito(p: Pelicula): void {
     const precio = this.precioFinal(p);
     this.cartService.agregarAlCarrito(p.titulo, precio);

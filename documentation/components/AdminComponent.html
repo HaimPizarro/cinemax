@@ -1,0 +1,1837 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cinemax documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">cinemax documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  AdminComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pages/admin/admin.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Componente AdminComponent
+Permite a usuarios con rol &quot;admin&quot; gestionar usuarios registrados en la plataforma.</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-admin</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>FormsModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./admin.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./admin.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#deleteModalOpen" >deleteModalOpen</a>
+                            </li>
+                            <li>
+                                <a href="#editClave" >editClave</a>
+                            </li>
+                            <li>
+                                <a href="#editClave2" >editClave2</a>
+                            </li>
+                            <li>
+                                <a href="#editModalOpen" >editModalOpen</a>
+                            </li>
+                            <li>
+                                <a href="#editMsg" >editMsg</a>
+                            </li>
+                            <li>
+                                <a href="#msgText" >msgText</a>
+                            </li>
+                            <li>
+                                <a href="#msgType" >msgType</a>
+                            </li>
+                            <li>
+                                <a href="#notAuthorized" >notAuthorized</a>
+                            </li>
+                            <li>
+                                <a href="#sesion" >sesion</a>
+                            </li>
+                            <li>
+                                <a href="#showMsg" >showMsg</a>
+                            </li>
+                            <li>
+                                <a href="#userEdit" >userEdit</a>
+                            </li>
+                            <li>
+                                <a href="#userToDelete" >userToDelete</a>
+                            </li>
+                            <li>
+                                <a href="#usuarios" >usuarios</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#cancelDelete" >cancelDelete</a>
+                            </li>
+                            <li>
+                                <a href="#cargarUsuarios" >cargarUsuarios</a>
+                            </li>
+                            <li>
+                                <a href="#cerrarModal" >cerrarModal</a>
+                            </li>
+                            <li>
+                                <a href="#checkSesion" >checkSesion</a>
+                            </li>
+                            <li>
+                                <a href="#confirmDelete" >confirmDelete</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#displayMessage" >displayMessage</a>
+                            </li>
+                            <li>
+                                <a href="#guardarEdicion" >guardarEdicion</a>
+                            </li>
+                            <li>
+                                <a href="#logout" >logout</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#openDelete" >openDelete</a>
+                            </li>
+                            <li>
+                                <a href="#openEdit" >openEdit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(usuariosService: <a href="../injectables/UsuariosService.html" target="_self">UsuariosService</a>, auth: <a href="../injectables/AuthService.html" target="_self">AuthService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/pages/admin/admin.component.ts:42</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>usuariosService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UsuariosService.html" target="_self" >UsuariosService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>auth</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cancelDelete"></a>
+                    <span class="name">
+                        <span ><b>cancelDelete</b></span>
+                        <a href="#cancelDelete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cancelDelete()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="132"
+                                    class="link-to-prism">src/app/pages/admin/admin.component.ts:132</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Cancela la eliminación del usuario</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargarUsuarios"></a>
+                    <span class="name">
+                        <span ><b>cargarUsuarios</b></span>
+                        <a href="#cargarUsuarios"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cargarUsuarios()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="71"
+                                    class="link-to-prism">src/app/pages/admin/admin.component.ts:71</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Carga los usuarios desde el servicio</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cerrarModal"></a>
+                    <span class="name">
+                        <span ><b>cerrarModal</b></span>
+                        <a href="#cerrarModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cerrarModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="121"
+                                    class="link-to-prism">src/app/pages/admin/admin.component.ts:121</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Cierra el modal de edición</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkSesion"></a>
+                    <span class="name">
+                        <span ><b>checkSesion</b></span>
+                        <a href="#checkSesion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>checkSesion()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="64"
+                                    class="link-to-prism">src/app/pages/admin/admin.component.ts:64</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Verifica si el usuario tiene permiso para acceder al panel de administración</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="confirmDelete"></a>
+                    <span class="name">
+                        <span ><b>confirmDelete</b></span>
+                        <a href="#confirmDelete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>confirmDelete()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="138"
+                                    class="link-to-prism">src/app/pages/admin/admin.component.ts:138</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Elimina al usuario después de confirmación</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="displayMessage"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>displayMessage</b></span>
+                        <a href="#displayMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>displayMessage(text: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, type: "success" | "danger")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="56"
+                                    class="link-to-prism">src/app/pages/admin/admin.component.ts:56</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Muestra un mensaje flotante en pantalla</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>text</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                        <code>&quot;success&quot; | &quot;danger&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="guardarEdicion"></a>
+                    <span class="name">
+                        <span ><b>guardarEdicion</b></span>
+                        <a href="#guardarEdicion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>guardarEdicion()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="88"
+                                    class="link-to-prism">src/app/pages/admin/admin.component.ts:88</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Guarda los cambios del usuario editado.
+Valida contraseñas si se cambiaron.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="logout"></a>
+                    <span class="name">
+                        <span ><b>logout</b></span>
+                        <a href="#logout"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>logout()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="153"
+                                    class="link-to-prism">src/app/pages/admin/admin.component.ts:153</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Cierra sesión del usuario administrador</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="50"
+                                    class="link-to-prism">src/app/pages/admin/admin.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Método de inicialización. Verifica sesión y carga usuarios si está autorizado.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openDelete"></a>
+                    <span class="name">
+                        <span ><b>openDelete</b></span>
+                        <a href="#openDelete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openDelete(user: <a href="../interfaces/Usuario.html" target="_self">Usuario</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="126"
+                                    class="link-to-prism">src/app/pages/admin/admin.component.ts:126</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Abre el modal para confirmar eliminación del usuario</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>user</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Usuario.html" target="_self" >Usuario</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openEdit"></a>
+                    <span class="name">
+                        <span ><b>openEdit</b></span>
+                        <a href="#openEdit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openEdit(user: <a href="../interfaces/Usuario.html" target="_self">Usuario</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="76"
+                                    class="link-to-prism">src/app/pages/admin/admin.component.ts:76</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Abre el modal para editar el usuario seleccionado</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>user</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Usuario.html" target="_self" >Usuario</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteModalOpen"></a>
+                    <span class="name">
+                        <span ><b>deleteModalOpen</b></span>
+                        <a href="#deleteModalOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/pages/admin/admin.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Modal de eliminación</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editClave"></a>
+                    <span class="name">
+                        <span ><b>editClave</b></span>
+                        <a href="#editClave"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/pages/admin/admin.component.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editClave2"></a>
+                    <span class="name">
+                        <span ><b>editClave2</b></span>
+                        <a href="#editClave2"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/pages/admin/admin.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editModalOpen"></a>
+                    <span class="name">
+                        <span ><b>editModalOpen</b></span>
+                        <a href="#editModalOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/pages/admin/admin.component.ts:26</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Modal de edición</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editMsg"></a>
+                    <span class="name">
+                        <span ><b>editMsg</b></span>
+                        <a href="#editMsg"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/pages/admin/admin.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="msgText"></a>
+                    <span class="name">
+                        <span ><b>msgText</b></span>
+                        <a href="#msgText"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/pages/admin/admin.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="msgType"></a>
+                    <span class="name">
+                        <span ><b>msgType</b></span>
+                        <a href="#msgType"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;success&quot; | &quot;danger&quot;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;success&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/pages/admin/admin.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="notAuthorized"></a>
+                    <span class="name">
+                        <span ><b>notAuthorized</b></span>
+                        <a href="#notAuthorized"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/pages/admin/admin.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Control de acceso</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sesion"></a>
+                    <span class="name">
+                        <span ><b>sesion</b></span>
+                        <a href="#sesion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/pages/admin/admin.component.ts:23</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Sesión actual del usuario logueado</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showMsg"></a>
+                    <span class="name">
+                        <span ><b>showMsg</b></span>
+                        <a href="#showMsg"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/pages/admin/admin.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Snackbar de mensaje</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userEdit"></a>
+                    <span class="name">
+                        <span ><b>userEdit</b></span>
+                        <a href="#userEdit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Usuario.html" target="_self" >Usuario | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/pages/admin/admin.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userToDelete"></a>
+                    <span class="name">
+                        <span ><b>userToDelete</b></span>
+                        <a href="#userToDelete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Usuario.html" target="_self" >Usuario | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/pages/admin/admin.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="usuarios"></a>
+                    <span class="name">
+                        <span ><b>usuarios</b></span>
+                        <a href="#usuarios"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Usuario.html" target="_self" >Usuario[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/pages/admin/admin.component.ts:20</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Lista de usuarios cargados del servicio</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { UsuariosService, Usuario } from &#x27;../../services/usuarios.services&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { AuthService } from &#x27;../../services/auth.services&#x27;;
+
+/**
+ * Componente AdminComponent
+ * Permite a usuarios con rol &quot;admin&quot; gestionar usuarios registrados en la plataforma.
+ */
+@Component({
+  selector: &#x27;app-admin&#x27;,
+  standalone: true,
+  templateUrl: &#x27;./admin.component.html&#x27;,
+  styleUrls: [&#x27;./admin.component.css&#x27;],
+  imports: [CommonModule, FormsModule],
+})
+export class AdminComponent implements OnInit {
+  /** Lista de usuarios cargados del servicio */
+  usuarios: Usuario[] &#x3D; [];
+
+  /** Sesión actual del usuario logueado */
+  sesion: any &#x3D; null;
+
+  /** Modal de edición */
+  editModalOpen &#x3D; false;
+  userEdit: Usuario | null &#x3D; null;
+  editClave &#x3D; &#x27;&#x27;;
+  editClave2 &#x3D; &#x27;&#x27;;
+  editMsg &#x3D; &#x27;&#x27;;
+
+  /** Modal de eliminación */
+  deleteModalOpen &#x3D; false;
+  userToDelete: Usuario | null &#x3D; null;
+
+  /** Snackbar de mensaje */
+  showMsg &#x3D; false;
+  msgText &#x3D; &#x27;&#x27;;
+  msgType: &#x27;success&#x27; | &#x27;danger&#x27; &#x3D; &#x27;success&#x27;;
+
+  /** Control de acceso */
+  notAuthorized &#x3D; false;
+
+  constructor(
+    private usuariosService: UsuariosService,
+    private auth: AuthService
+  ) {}
+
+  /** Método de inicialización. Verifica sesión y carga usuarios si está autorizado. */
+  ngOnInit() {
+    this.checkSesion();
+    this.cargarUsuarios();
+  }
+
+  /** Muestra un mensaje flotante en pantalla */
+  private displayMessage(text: string, type: &#x27;success&#x27; | &#x27;danger&#x27;) {
+    this.msgText &#x3D; text;
+    this.msgType &#x3D; type;
+    this.showMsg &#x3D; true;
+    setTimeout(() &#x3D;&gt; (this.showMsg &#x3D; false), 3000);
+  }
+
+  /** Verifica si el usuario tiene permiso para acceder al panel de administración */
+  checkSesion() {
+    const raw &#x3D; sessionStorage.getItem(&#x27;sesionCineMax&#x27;);
+    this.sesion &#x3D; raw ? JSON.parse(raw) : null;
+    this.notAuthorized &#x3D; !(this.sesion &amp;&amp; this.sesion.rol &#x3D;&#x3D;&#x3D; &#x27;admin&#x27;);
+  }
+
+  /** Carga los usuarios desde el servicio */
+  cargarUsuarios() {
+    this.usuarios &#x3D; Object.values(this.usuariosService.getAll());
+  }
+
+  /** Abre el modal para editar el usuario seleccionado */
+  openEdit(user: Usuario) {
+    this.userEdit &#x3D; { ...user };
+    this.editClave &#x3D; &#x27;&#x27;;
+    this.editClave2 &#x3D; &#x27;&#x27;;
+    this.editMsg &#x3D; &#x27;&#x27;;
+    this.editModalOpen &#x3D; true;
+  }
+
+  /**
+   * Guarda los cambios del usuario editado.
+   * Valida contraseñas si se cambiaron.
+   */
+  guardarEdicion() {
+    if (!this.userEdit) return;
+    try {
+      if (this.editClave || this.editClave2) {
+        const passRx &#x3D; /^(?&#x3D;.*[A-Z])(?&#x3D;.*\d)[A-Za-z\d]{6,18}$/;
+        if (!passRx.test(this.editClave)) {
+          throw new Error(&#x27;Debe tener 6–18 caracteres, al menos una mayúscula y un número.&#x27;);
+        }
+        if (this.editClave !&#x3D;&#x3D; this.editClave2) {
+          throw new Error(&#x27;Las contraseñas no coinciden.&#x27;);
+        }
+        if (this.editClave &#x3D;&#x3D;&#x3D; this.userEdit.clave) {
+          throw new Error(&#x27;No repitas la contraseña anterior.&#x27;);
+        }
+        this.userEdit.clave &#x3D; this.editClave;
+      }
+
+      this.usuariosService.update(this.userEdit.email, {
+        nombre: this.userEdit.nombre,
+        clave: this.userEdit.clave,
+        rol: this.userEdit.rol,
+      });
+
+      this.editModalOpen &#x3D; false;
+      this.cargarUsuarios();
+      this.displayMessage(&#x27;Cambio exitoso&#x27;, &#x27;success&#x27;);
+    } catch (e: any) {
+      this.editMsg &#x3D; e.message;
+      this.displayMessage(&#x27;Error al realizar cambio&#x27;, &#x27;danger&#x27;);
+    }
+  }
+
+  /** Cierra el modal de edición */
+  cerrarModal() {
+    this.editModalOpen &#x3D; false;
+  }
+
+  /** Abre el modal para confirmar eliminación del usuario */
+  openDelete(user: Usuario) {
+    this.userToDelete &#x3D; user;
+    this.deleteModalOpen &#x3D; true;
+  }
+
+  /** Cancela la eliminación del usuario */
+  cancelDelete() {
+    this.deleteModalOpen &#x3D; false;
+    this.userToDelete &#x3D; null;
+  }
+
+  /** Elimina al usuario después de confirmación */
+  confirmDelete() {
+    if (!this.userToDelete) return;
+
+    try {
+      this.usuariosService.delete(this.userToDelete.email);
+      this.usuarios &#x3D; this.usuarios.filter(u &#x3D;&gt; u.email !&#x3D;&#x3D; this.userToDelete?.email);
+      this.cancelDelete();
+      this.displayMessage(&#x27;Usuario eliminado exitosamente&#x27;, &#x27;success&#x27;);
+    } catch (e) {
+      this.cargarUsuarios();
+      this.displayMessage(&#x27;Error al eliminar usuario&#x27;, &#x27;danger&#x27;);
+    }
+  }
+
+  /** Cierra sesión del usuario administrador */
+  logout() {
+    if (confirm(&#x27;¿Cerrar sesión?&#x27;)) {
+      sessionStorage.removeItem(&#x27;sesionCineMax&#x27;);
+      localStorage.removeItem(&#x27;recordarUsuario&#x27;);
+      this.auth.logout();
+      window.location.href &#x3D; &#x27;/login&#x27;;
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;main class&#x3D;&quot;container my-5 flex-grow-1 position-relative admin-page&quot;&gt;
+  &lt;h1 class&#x3D;&quot;mb-4&quot;&gt;Panel de Gestión de Usuarios&lt;/h1&gt;
+
+  &lt;!-- Snackbar --&gt;
+  &lt;div
+    *ngIf&#x3D;&quot;showMsg&quot;
+    class&#x3D;&quot;toast-container position-fixed top-0 start-50 translate-middle-x p-3&quot;
+    style&#x3D;&quot;z-index: 2000;&quot;
+  &gt;
+    &lt;div
+      class&#x3D;&quot;toast align-items-center text-white border-0 show&quot;
+      [ngClass]&#x3D;&quot;{&#x27;bg-success&#x27;: msgType&#x3D;&#x3D;&#x3D;&#x27;success&#x27;, &#x27;bg-danger&#x27;: msgType&#x3D;&#x3D;&#x3D;&#x27;danger&#x27;}&quot;
+      role&#x3D;&quot;alert&quot;
+    &gt;
+      &lt;div class&#x3D;&quot;d-flex&quot;&gt;
+        &lt;div class&#x3D;&quot;toast-body&quot;&gt;{{ msgText }}&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- No autorizado --&gt;
+  &lt;div *ngIf&#x3D;&quot;notAuthorized&quot; class&#x3D;&quot;alert alert-danger&quot;&gt;
+    No tienes permisos para ver esta página.
+  &lt;/div&gt;
+
+  &lt;!-- Tabla de usuarios --&gt;
+  &lt;div *ngIf&#x3D;&quot;!notAuthorized&quot;&gt;
+    &lt;table class&#x3D;&quot;table table-striped&quot;&gt;
+      &lt;thead class&#x3D;&quot;table-dark&quot;&gt;
+        &lt;tr&gt;&lt;th&gt;Email&lt;/th&gt;&lt;th&gt;Nombre&lt;/th&gt;&lt;th&gt;Rol&lt;/th&gt;&lt;th&gt;Acciones&lt;/th&gt;&lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr *ngFor&#x3D;&quot;let user of usuarios&quot;&gt;
+          &lt;td&gt;{{ user.email }}&lt;/td&gt;
+          &lt;td&gt;{{ user.nombre }}&lt;/td&gt;
+          &lt;td&gt;{{ user.rol | titlecase }}&lt;/td&gt;
+          &lt;td&gt;
+            &lt;button class&#x3D;&quot;btn btn-sm btn-primary me-2&quot; (click)&#x3D;&quot;openEdit(user)&quot;&gt;
+              &lt;i class&#x3D;&quot;bi bi-pencil&quot;&gt;&lt;/i&gt;
+            &lt;/button&gt;
+            &lt;button
+              *ngIf&#x3D;&quot;user.email !&#x3D;&#x3D; sesion?.email&quot;
+              class&#x3D;&quot;btn btn-sm btn-danger&quot;
+              (click)&#x3D;&quot;openDelete(user)&quot;
+            &gt;
+              &lt;i class&#x3D;&quot;bi bi-trash&quot;&gt;&lt;/i&gt;
+            &lt;/button&gt;
+          &lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Edit Modal --&gt;
+  &lt;div *ngIf&#x3D;&quot;editModalOpen&quot; class&#x3D;&quot;modal-backdrop-custom&quot;&gt;&lt;/div&gt;
+  &lt;div *ngIf&#x3D;&quot;editModalOpen &amp;&amp; userEdit&quot; class&#x3D;&quot;modal-dialog-centered-custom&quot;&gt;
+    &lt;div class&#x3D;&quot;modal-content shadow-lg&quot;&gt;
+      &lt;form (ngSubmit)&#x3D;&quot;guardarEdicion()&quot;&gt;
+        &lt;div class&#x3D;&quot;modal-header bg-primary text-white&quot;&gt;
+          &lt;h5 class&#x3D;&quot;modal-title&quot;&gt;Modificar Usuario&lt;/h5&gt;
+          &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn-close btn-close-white&quot; (click)&#x3D;&quot;cerrarModal()&quot;&gt;&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;modal-body&quot;&gt;
+          &lt;div *ngIf&#x3D;&quot;editMsg&quot; class&#x3D;&quot;alert alert-danger&quot;&gt;{{ editMsg }}&lt;/div&gt;
+          &lt;div class&#x3D;&quot;mb-3&quot;&gt;
+            &lt;label class&#x3D;&quot;form-label&quot;&gt;Nombre completo&lt;/label&gt;
+            &lt;input [(ngModel)]&#x3D;&quot;userEdit.nombre&quot; name&#x3D;&quot;nombreEdit&quot; class&#x3D;&quot;form-control&quot; required /&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;mb-2 form-text&quot;&gt;Deja en blanco si no deseas cambiar la contraseña.&lt;/div&gt;
+          &lt;div class&#x3D;&quot;mb-3&quot;&gt;
+            &lt;label class&#x3D;&quot;form-label&quot;&gt;Contraseña nueva&lt;/label&gt;
+            &lt;input type&#x3D;&quot;password&quot; [(ngModel)]&#x3D;&quot;editClave&quot; name&#x3D;&quot;editClave&quot; class&#x3D;&quot;form-control&quot; /&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;mb-3&quot;&gt;
+            &lt;label class&#x3D;&quot;form-label&quot;&gt;Confirmar contraseña&lt;/label&gt;
+            &lt;input type&#x3D;&quot;password&quot; [(ngModel)]&#x3D;&quot;editClave2&quot; name&#x3D;&quot;editClave2&quot; class&#x3D;&quot;form-control&quot; /&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;mb-3&quot;&gt;
+            &lt;label class&#x3D;&quot;form-label&quot;&gt;Rol&lt;/label&gt;
+            &lt;select [(ngModel)]&#x3D;&quot;userEdit.rol&quot; name&#x3D;&quot;rolEdit&quot; class&#x3D;&quot;form-select&quot;&gt;
+              &lt;option value&#x3D;&quot;cliente&quot;&gt;Cliente&lt;/option&gt;
+              &lt;option value&#x3D;&quot;admin&quot;&gt;Administrador&lt;/option&gt;
+            &lt;/select&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;modal-footer justify-content-between&quot;&gt;
+          &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-secondary&quot; (click)&#x3D;&quot;cerrarModal()&quot;&gt;Cancelar&lt;/button&gt;
+          &lt;button type&#x3D;&quot;submit&quot; class&#x3D;&quot;btn btn-primary&quot;&gt;Guardar cambios&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Delete Confirmation Modal --&gt;
+  &lt;div *ngIf&#x3D;&quot;deleteModalOpen&quot; class&#x3D;&quot;modal-backdrop-custom&quot;&gt;&lt;/div&gt;
+  &lt;div *ngIf&#x3D;&quot;deleteModalOpen&quot; class&#x3D;&quot;modal-dialog-centered-custom&quot;&gt;
+    &lt;div class&#x3D;&quot;modal-content shadow-lg&quot;&gt;
+      &lt;div class&#x3D;&quot;modal-header bg-danger text-white&quot;&gt;
+        &lt;h5 class&#x3D;&quot;modal-title&quot;&gt;Eliminar Usuario&lt;/h5&gt;
+        &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn-close btn-close-white&quot; (click)&#x3D;&quot;cancelDelete()&quot;&gt;&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;modal-body&quot;&gt;
+        &lt;p&gt;¿Estás seguro de eliminar a &lt;strong&gt;{{ userToDelete?.email }}&lt;/strong&gt;?&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;modal-footer&quot;&gt;
+        &lt;button class&#x3D;&quot;btn btn-secondary&quot; (click)&#x3D;&quot;cancelDelete()&quot;&gt;Cancelar&lt;/button&gt;
+        &lt;button class&#x3D;&quot;btn btn-danger&quot; (click)&#x3D;&quot;confirmDelete()&quot;&gt;Eliminar&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/main&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./admin.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">/* Overlay más suave */
+.modal-backdrop-custom {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);  /* menos opaco */
+  backdrop-filter: blur(3px);
+  z-index: 1040;
+}
+
+/* Centrado y padding del dialog */
+.modal-dialog-centered-custom {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1050;
+  width: 100%;
+  max-width: 480px;   /* un poco más angosto */
+  padding: 0 1rem;
+}
+
+/* Estilo del contenido */
+.modal-content {
+  background-color: #ffffff;        /* fondo blanco sólido */
+  border: none;
+  border-radius: 0.75rem;           /* esquinas más redondas */
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+  overflow: hidden;
+}
+
+/* Header con color de marca */
+.modal-header {
+  background-color: #0d6efd;        /* azul Bootstrap primary */
+  color: white;
+  border-bottom: none;
+  padding: 1rem 1.5rem;
+}
+
+.modal-title {
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Cuerpo con padding generoso */
+.modal-body {
+  padding: 1.5rem;
+}
+
+/* Footer fijo dentro del contenido */
+.modal-footer {
+  padding: 1rem 1.5rem;
+  background-color: #f8f9fa;        /* gris claro */
+  border-top: none;
+}
+
+/* Botones del footer */
+.modal-footer .btn {
+  min-width: 6rem;
+}
+
+/* Asegurar que los inputs tengan contraste */
+.modal-body .form-control,
+.modal-body .form-select {
+  background-color: #fff;
+  border-radius: 0.375rem;
+}
+
+/* Ajuste general de shadow para todo el modal */
+.shadow-lg {
+  box-shadow: 0 1rem 3rem rgba(0,0,0,0.175) !important;
+}
+
+
+.modal-backdrop-custom {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(3px);
+  z-index: 1040;
+}
+
+.modal-dialog-centered-custom {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1050;
+  width: 100%;
+  max-width: 440px;
+  padding: 0 1rem;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><main class="container my-5 flex-grow-1 position-relative admin-page">  <h1 class="mb-4">Panel de Gestión de Usuarios</h1>  <!-- Snackbar -->  <div    *ngIf="showMsg"    class="toast-container position-fixed top-0 start-50 translate-middle-x p-3"    style="z-index: 2000;"  >    <div      class="toast align-items-center text-white border-0 show"      [ngClass]="{\'bg-success\': msgType===\'success\', \'bg-danger\': msgType===\'danger\'}"      role="alert"    >      <div class="d-flex">        <div class="toast-body">{{ msgText }}</div>      </div>    </div>  </div>  <!-- No autorizado -->  <div *ngIf="notAuthorized" class="alert alert-danger">    No tienes permisos para ver esta página.  </div>  <!-- Tabla de usuarios -->  <div *ngIf="!notAuthorized">    <table class="table table-striped">      <thead class="table-dark">        <tr><th>Email</th><th>Nombre</th><th>Rol</th><th>Acciones</th></tr>      </thead>      <tbody>        <tr *ngFor="let user of usuarios">          <td>{{ user.email }}</td>          <td>{{ user.nombre }}</td>          <td>{{ user.rol | titlecase }}</td>          <td>            <button class="btn btn-sm btn-primary me-2" (click)="openEdit(user)">              <i class="bi bi-pencil"></i>            </button>            <button              *ngIf="user.email !== sesion?.email"              class="btn btn-sm btn-danger"              (click)="openDelete(user)"            >              <i class="bi bi-trash"></i>            </button>          </td>        </tr>      </tbody>    </table>  </div>  <!-- Edit Modal -->  <div *ngIf="editModalOpen" class="modal-backdrop-custom"></div>  <div *ngIf="editModalOpen && userEdit" class="modal-dialog-centered-custom">    <div class="modal-content shadow-lg">      <form (ngSubmit)="guardarEdicion()">        <div class="modal-header bg-primary text-white">          <h5 class="modal-title">Modificar Usuario</h5>          <button type="button" class="btn-close btn-close-white" (click)="cerrarModal()"></button>        </div>        <div class="modal-body">          <div *ngIf="editMsg" class="alert alert-danger">{{ editMsg }}</div>          <div class="mb-3">            <label class="form-label">Nombre completo</label>            <input [(ngModel)]="userEdit.nombre" name="nombreEdit" class="form-control" required />          </div>          <div class="mb-2 form-text">Deja en blanco si no deseas cambiar la contraseña.</div>          <div class="mb-3">            <label class="form-label">Contraseña nueva</label>            <input type="password" [(ngModel)]="editClave" name="editClave" class="form-control" />          </div>          <div class="mb-3">            <label class="form-label">Confirmar contraseña</label>            <input type="password" [(ngModel)]="editClave2" name="editClave2" class="form-control" />          </div>          <div class="mb-3">            <label class="form-label">Rol</label>            <select [(ngModel)]="userEdit.rol" name="rolEdit" class="form-select">              <option value="cliente">Cliente</option>              <option value="admin">Administrador</option>            </select>          </div>        </div>        <div class="modal-footer justify-content-between">          <button type="button" class="btn btn-secondary" (click)="cerrarModal()">Cancelar</button>          <button type="submit" class="btn btn-primary">Guardar cambios</button>        </div>      </form>    </div>  </div>  <!-- Delete Confirmation Modal -->  <div *ngIf="deleteModalOpen" class="modal-backdrop-custom"></div>  <div *ngIf="deleteModalOpen" class="modal-dialog-centered-custom">    <div class="modal-content shadow-lg">      <div class="modal-header bg-danger text-white">        <h5 class="modal-title">Eliminar Usuario</h5>        <button type="button" class="btn-close btn-close-white" (click)="cancelDelete()"></button>      </div>      <div class="modal-body">        <p>¿Estás seguro de eliminar a <strong>{{ userToDelete?.email }}</strong>?</p>      </div>      <div class="modal-footer">        <button class="btn btn-secondary" (click)="cancelDelete()">Cancelar</button>        <button class="btn btn-danger" (click)="confirmDelete()">Eliminar</button>      </div>    </div>  </div></main></div>'
+    var COMPONENTS = [{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CartComponent', 'selector': 'app-cart'},{'name': 'ComediaComponent', 'selector': 'app-comedia'},{'name': 'DramaComponent', 'selector': 'app-drama'},{'name': 'EstrategiaComponent', 'selector': 'app-estrategia'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PerfilComponent', 'selector': 'app-perfil'},{'name': 'RecuperarComponent', 'selector': 'app-recuperar'},{'name': 'RegistroComponent', 'selector': 'app-registro'},{'name': 'TerrorComponent', 'selector': 'app-terror'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'AdminComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'AdminComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
