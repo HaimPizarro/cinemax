@@ -54,7 +54,7 @@ export class TerrorComponent implements OnInit {
       descripcion: "Una familia descubre oscuros secretos tras la muerte de la abuela.",
       precio: 13490,
       descuento: 10,
-      imagen: "https://m.media-amazon.com/images/M/MV5BOTlkOGY0OWUtYTg1My00ZGU2LTliZTItODI5NjJkNDAwYzQwXkFqcGc@._V1_.jpg",
+      imagen: "https://m.media-amazon.com/images/M/MV5BOTlkOGY0OWUtYTg1My00ZGU2LTliZTItODI5NjJkNDAwYzQwXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
     },
   ];
 
