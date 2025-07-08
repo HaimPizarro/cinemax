@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { CartService } from '../../services/cart.services';
 import { AuthService, Sesion } from '../../services/auth.services';
+import { environment } from '../../../environments/environment';
 
 /**
  * Interfaz que representa los datos de una película.
  */
-interface Pelicula {
+export interface Pelicula {
   id: number;
   titulo: string;
+  genero: string;
   anio: number;
   descripcion: string;
   precio: number;
@@ -19,70 +22,57 @@ interface Pelicula {
 /**
  * Componente que muestra el catálogo de películas del género estrategia.
  * Solo los usuarios con rol 'cliente' pueden agregar productos al carrito.
+ * Los datos se obtienen de la API remota.
  */
 @Component({
   selector: 'app-estrategia',
   standalone: true,
+  imports: [CommonModule, HttpClientModule],
   templateUrl: './estrategia.component.html',
-  imports: [CommonModule],
 })
 export class EstrategiaComponent implements OnInit {
+  /** Lista de películas cargada desde la API */
+  estrategiaMovies: Pelicula[] = [];
 
-  /**
-   * Lista estática de películas de estrategia.
-   * Esta información puede ser reemplazada por datos dinámicos en el futuro.
-   */
-  estrategiaMovies: Pelicula[] = [
-    {
-      id: 1,
-      titulo: 'Top Gun: Maverick',
-      anio: 2022,
-      descripcion: 'Maverick entrena a una nueva generación de pilotos…',
-      precio: 12990,
-      descuento: 20,
-      imagen:
-        'https://light.pawa.cl/img/2022/06/12014901/1653297680_702523_1653300885_noticia_normal.jpg',
-    },
-    {
-      id: 2,
-      titulo: 'John Wick 4',
-      anio: 2023,
-      descripcion: 'John Wick se enfrenta a un nuevo enemigo para obtener su libertad.',
-      precio: 15990,
-      descuento: 0,
-      imagen:
-        'https://miro.medium.com/v2/resize:fit:1400/1*7P6HwA3O6AnzxfbdHvtZVA.jpeg',
-    },
-    {
-      id: 3,
-      titulo: 'Rápidos y Furiosos X',
-      anio: 2023,
-      descripcion: 'La familia Toretto enfrenta a su enemigo más letal.',
-      precio: 14990,
-      descuento: 10,
-      imagen:
-        'https://m.media-amazon.com/images/S/pv-target-images/8fd9d8b072906d80bbf485978430e97f7033a08d111a459727bb5c720ad37471.jpg',
-    },
-  ];
-
-  /**
-   * Bandera que indica si el usuario logueado es cliente.
-   */
+  /** Bandera que indica si el usuario logueado es cliente */
   isClient = false;
 
   constructor(
+    private http: HttpClient,
     private cartService: CartService,
     private auth: AuthService
   ) {}
 
   /**
-   * Al iniciar el componente, se verifica si el usuario tiene rol de cliente
-   * para habilitar funciones como agregar al carrito.
+   * Al iniciar el componente:
+   * 1) Nos suscribimos a la sesión para activar el carrito solo para clientes.
+   * 2) Cargamos las películas llamando a la API.
    */
   ngOnInit(): void {
     this.auth.sesion$.subscribe((sesion: Sesion | null) => {
       this.isClient = sesion?.rol === 'cliente';
     });
+
+    this.loadMovies();
+  }
+
+  /**
+   * Realiza la petición GET a la API y asigna la respuesta
+   * al arreglo local de películas.
+   */
+  private loadMovies(): void {
+    this.http
+      .get<Pelicula[]>(environment.apiBase)
+      .subscribe({
+        next: movies => {
+          // Filtrar solo las de género "estrategia"
+          this.estrategiaMovies = movies.filter(m => m.genero === 'estrategia');
+        },
+        error: err => {
+          console.error('Error cargando películas de estrategia:', err);
+          // Podrías mostrar un mensaje de error en UI si lo deseas
+        }
+      });
   }
 
   /**

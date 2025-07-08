@@ -1,13 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { CartService } from '../../services/cart.services';
-import { AuthService, Sesion } from '../../services/auth.services';
+// src/app/pages/comedia/comedia.component.ts
+
+import { Component, OnInit }           from '@angular/core';
+import { CommonModule }                from '@angular/common';
+import { HttpClientModule, HttpClient }from '@angular/common/http';
+import { CartService }                 from '../../services/cart.services';
+import { AuthService, Sesion }         from '../../services/auth.services';
+import { environment }                 from '../../../environments/environment';
 
 /**
- * Interfaz que representa los datos de una película.
+ * Modelo que define la estructura de una película.
  */
-interface Pelicula {
+export interface Pelicula {
   id: number;
+  genero: string;
   titulo: string;
   anio: number;
   descripcion: string;
@@ -17,75 +22,65 @@ interface Pelicula {
 }
 
 /**
- * Componente que muestra un catálogo de películas de comedia.
- * Permite agregar películas al carrito de compras si el usuario es cliente.
+ * Componente que muestra un catálogo de películas del género Comedia,
+ * obtenidas desde una API JSON alojada en GitHub Pages.
  */
 @Component({
   selector: 'app-comedia',
   standalone: true,
+  imports: [ CommonModule, HttpClientModule ],
   templateUrl: './comedia.component.html',
-  imports: [CommonModule],
 })
 export class ComediaComponent implements OnInit {
+  /** Lista de comedias disparada tras filtrar la API */
+  comediaMovies: Pelicula[] = [];
 
-  /**
-   * Lista fija de películas de comedia.
-   * Si luego se conecta a una API, este arreglo se puede reemplazar.
-   */
-  comediaMovies: Pelicula[] = [
-    {
-      id: 1,
-      titulo: 'Barbie',
-      anio: 2023,
-      descripcion: 'Barbie vive en Barbieland, donde todo es perfecto y rosa…',
-      precio: 16990,
-      descuento: 15,
-      imagen: 'https://es.web.img2.acsta.net/pictures/23/07/20/11/29/5479684.jpg',
-    },
-    {
-      id: 2,
-      titulo: 'Super Mario Bros',
-      anio: 2023,
-      descripcion: 'Mario y Luigi son transportados al Reino Champiñón…',
-      precio: 13990,
-      descuento: 0,
-      imagen: 'https://almomento.mx/wp-content/uploads/2023/04/Mario-Bros.-taquilla-Mexico.jpeg',
-    },
-    {
-      id: 3,
-      titulo: 'Mi Villano Favorito 4',
-      anio: 2024,
-      descripcion: 'Gru enfrenta a un nuevo enemigo mientras su familia crece…',
-      precio: 14990,
-      descuento: 25,
-      imagen: 'https://media.canal9.cl/2024/06/mi-villano-favorito-4-1906.jpg',
-    },
-  ];
-
-  /**
-   * Indica si el usuario tiene rol de cliente.
-   * Solo los clientes pueden agregar al carrito.
-   */
+  /** Sólo clientes pueden añadir al carrito */
   isClient = false;
 
+  /** Control de caché de errores / carga */
+  loading = true;
+  errorMsg: string | null = null;
+
   constructor(
+    private http: HttpClient,
     private cartService: CartService,
     private auth: AuthService
   ) {}
 
   /**
-   * Verifica si la sesión actual es de un cliente.
+   * Se ejecuta al inicializar el componente:
+   * 1) Carga las películas desde la API.
+   * 2) Vigila el rol de usuario para habilitar el botón.
    */
   ngOnInit(): void {
+    this.loadMovies();
     this.auth.sesion$.subscribe((sesion: Sesion | null) => {
       this.isClient = sesion?.rol === 'cliente';
     });
   }
 
   /**
-   * Calcula el precio final de una película aplicando descuento si existe.
-   * @param p Película
-   * @returns Precio con descuento aplicado
+   * Llama a la API y filtra sólo las de género "comedia".
+   */
+  private loadMovies(): void {
+    this.http
+      .get<Pelicula[]>(environment.apiBase)
+      .subscribe({
+        next: (all) => {
+          this.comediaMovies = all.filter(m => m.genero === 'comedia');
+          this.loading = false;
+        },
+        error: (err) => {
+          console.error('Error al cargar comedias', err);
+          this.errorMsg = 'No se pudieron cargar las películas.';
+          this.loading = false;
+        }
+      });
+  }
+
+  /**
+   * Calcula el precio final aplicando el descuento redondeado.
    */
   precioFinal(p: Pelicula): number {
     return p.descuento > 0
@@ -94,8 +89,7 @@ export class ComediaComponent implements OnInit {
   }
 
   /**
-   * Agrega una película al carrito con su título y precio final.
-   * @param p Película a agregar
+   * Añade la película al carrito usando el servicio.
    */
   agregarAlCarrito(p: Pelicula): void {
     const precio = this.precioFinal(p);
