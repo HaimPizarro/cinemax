@@ -3,6 +3,7 @@
   --bs-body-bg:    #f8f9fa;
   --bs-sombra:     0 2px 5px rgba(0, 0, 0, 0.10);
 }
+
 html, body {
   height: 100%;
 }
@@ -18,12 +19,15 @@ app-root {
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   font-family: Arial, sans-serif;
   background-color: var(--bs-body-bg);
   color: #333;
   line-height: 1.6;
 }
+
+/* ─── HERO DRAMA ────────────────────────────────────────────────────────────── */
 
 .hero-drama {
   position: relative;
@@ -33,6 +37,7 @@ body {
   background-attachment: fixed;
   color: white;
 }
+
 .hero-drama::before {
   content: "";
   position: absolute;
@@ -41,14 +46,18 @@ body {
   backdrop-filter: blur(6px);
   z-index: 1;
 }
+
 .hero-drama .container {
   position: relative;
   z-index: 2;
 }
 
+/* ─── CARDS & BADGES ────────────────────────────────────────────────────────── */
+
 .card {
   transition: box-shadow 0.3s ease;
 }
+
 .card:hover {
   box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.15) !important;
 }
@@ -59,6 +68,8 @@ body {
   left: 0.5rem;
   z-index: 2;
 }
+
+/* ─── PRECIOS & BOTONES ─────────────────────────────────────────────────────── */
 
 .s-price {
   font-size: 1.25rem;
@@ -72,29 +83,126 @@ body {
   color: #fff;
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
+
 .btn-brand:hover {
   background-color: #343a40;
   border-color:    #343a40;
   color:           var(--bs-body-bg);
 }
+
 .btn-brand:focus,
 .btn-brand:active {
   background-color: #2e3236;
   border-color:    #2e3236;
   color:           var(--bs-body-bg);
 }
+
 .btn-brand:disabled {
   background-color: var(--bs-brand-dark);
   border-color:    var(--bs-brand-dark);
   opacity:         0.65;
 }
 
-@media (max-width: 992px) {
-  .navbar-collapse .navbar-nav {
-    margin: auto;
-    align-items: center;
-  }
+/* ─── BOTONES EDITAR (AZUL) Y ELIMINAR (ROJO) EN CARDS ────────────────────── */
+.card .btn-sm.btn-outline-primary {
+  /* Color de fondo “azul Bootstrap” sólido */
+  background-color: #0d6efd;
+  color: #fff;
+  border: none;
+  transition: background-color 0.2s ease;
 }
+
+.card .btn-sm.btn-outline-primary:hover {
+  /* Un poco más transparente al pasar el ratón */
+  background-color: rgba(13, 110, 253, 0.7);
+}
+
+.card .btn-sm.btn-outline-danger {
+  /* Color de fondo “rojo Bootstrap” sólido */
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  transition: background-color 0.2s ease;
+}
+
+.card .btn-sm.btn-outline-danger:hover {
+  /* Un poco más transparente al pasar el ratón */
+  background-color: rgba(220, 53, 69, 0.7);
+}
+
+/* Mantener el icono centrado */
+.card .btn-sm i {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* Sombra sutil en reposo */
+.card .btn-sm {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* ─── BOTÓN FLOTANTE FAB ───────────────────────────────────────────────────── */
+
+.fab {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+
+/* ─── BACKDROP DARK PARA CONFIRM DELETE ────────────────────────────────────── */
+.delete-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 2000;
+}
+
+/* ─── DIALOG DE CONFIRMACIÓN CENTRADO ─────────────────────────────────────── */
+.delete-confirm-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  z-index: 2001;
+  overflow: hidden;
+  animation: fadeIn 0.25s ease-out;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── CABECERA / TEXTO ───────────────────────────────────────────────────── */
+.delete-confirm-dialog .dialog-body {
+  padding: 1.5rem;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+/* ─── BOTONES ─────────────────────────────────────────────────────────────── */
+.delete-confirm-dialog .dialog-footer {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f8f9fa;
+}
+
+.delete-confirm-dialog .dialog-footer .btn {
+  min-width: 5rem;
+}
+
+/* ─── ANIMACIONES ───────────────────────────────────────────────────────────── */
 
 @keyframes fade-up {
   0% {
@@ -106,8 +214,23 @@ body {
     opacity: 1;
   }
 }
+
 .fade-up {
   animation: fade-up 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── MEDIA QUERIES ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 992px) {
+  .navbar-collapse .navbar-nav {
+    margin: auto;
+    align-items: center;
+  }
 }
 
 @media (max-width: 576px) {
@@ -115,3 +238,91 @@ body {
     font-size: 1.8rem;
   }
 }
+
+/* ─── MODALES CUSTOM GLOBALES (pattern Admin + Drama) ───────────────────────── */
+
+/* Backdrop semitransparente gris oscuro */
+.modal-backdrop-custom {
+  position: fixed;
+  inset: 0;                          /* top:0 right:0 bottom:0 left:0 */
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1050;                     /* por encima de casi todo */
+}
+
+/* Contenedor centrado del diálogo */
+.modal-dialog-centered-custom {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1060;                     /* sobre el backdrop */
+  padding: 1rem;                     /* para espacio en móviles */
+}
+
+/* Caja interior del modal */
+.modal-dialog-centered-custom .modal-content {
+  background: #fff;
+  border-radius: 1rem;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: var(--bs-sombra);
+  overflow: hidden;
+  animation: modal-zoom-in 0.25s ease-out;
+}
+
+/* Animación suave al aparecer */
+@keyframes modal-zoom-in {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Estilos de header/body/footer herededos de AdminComponent */
+.modal-dialog-centered-custom .modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: none;
+}
+
+.modal-dialog-centered-custom .modal-header .modal-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.modal-dialog-centered-custom .modal-header .btn-close {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.modal-dialog-centered-custom .modal-body {
+  padding: 1rem 1.5rem;
+}
+
+.modal-dialog-centered-custom .modal-body .form-control,
+.modal-dialog-centered-custom .modal-body .form-select {
+  border-radius: .375rem;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);
+}
+
+.modal-dialog-centered-custom .modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: .5rem;
+  padding: 1rem 1.5rem;
+  border-top: none;
+}
+
+.modal-dialog-centered-custom .modal-footer .btn-brand {
+  min-width: 5rem;
+}
+
+/* ─── FIN styles.css ───────────────────────────────────────────────────────── */

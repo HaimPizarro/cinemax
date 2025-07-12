@@ -1,90 +1,160 @@
+// src/app/pages/drama/drama.component.ts
+
 import { Component, OnInit } from '@angular/core';
-import { CommonModule }              from '@angular/common';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { CartService }               from '../../services/cart.services';
-import { AuthService, Sesion }       from '../../services/auth.services';
-import { environment }               from '../../../environments/environment';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CartService } from '../../services/cart.services';
+import { AuthService, Sesion } from '../../services/auth.services';
+import { SupabaseService, Pelicula } from '../../services/supabase.services';
 
-/**
- * Modelo que define la estructura de una película.
- */
-export interface Pelicula {
-  id: number;
-  genero: string;
-  titulo: string;
-  anio: number;
-  descripcion: string;
-  precio: number;
-  descuento: number;
-  imagen: string;
-}
-
-/**
- * Componente que muestra un catálogo de películas del género Drama,
- * obtenidas desde una API JSON alojada en GitHub Pages.
- */
 @Component({
   selector: 'app-drama',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './drama.component.html',
 })
 export class DramaComponent implements OnInit {
-  /** Lista de películas de drama obtenidas de la API */
-  dramaMovies: Pelicula[] = [];
 
-  /** Solo los usuarios con rol 'cliente' pueden añadir al carrito */
-  isClient = false;
+  dramaMovies: Pelicula[] = [];
+  isClient    = false;
+  isAdmin     = false;
+  loading     = false;
+  errorMessage = '';
+  showDeleteConfirm = false;
+  movieToDelete?: Pelicula;
+
+
+  // modal state
+  addModalOpen       = false;
+  isEditMode         = false;
+  selectedMovieId?: number;
+
+  newMovieForm!: FormGroup;
+  submitting   = false;
 
   constructor(
-    private http: HttpClient,
+    private supabaseService: SupabaseService,
     private cartService: CartService,
-    private auth: AuthService
+    private auth: AuthService,
+    private fb: FormBuilder
   ) {}
 
-  /**
-   * Al iniciarse, carga las películas y comprueba el rol del usuario.
-   */
   ngOnInit(): void {
+    this.initForm();
     this.loadMovies();
-    this.auth.sesion$.subscribe((sesion: Sesion | null) => {
-      this.isClient = sesion?.rol === 'cliente';
+    this.auth.sesion$.subscribe(s => {
+      this.isClient = s?.rol === 'cliente';
+      this.isAdmin  = s?.rol === 'admin';
     });
   }
 
-  /**
-   * Llama a la API para obtener todas las películas y filtra las de género 'drama'.
-   */
-  private loadMovies(): void {
-    this.http
-      .get<Pelicula[]>(environment.apiBase)
-      .subscribe({
-        next: (all) => {
-          this.dramaMovies = all.filter(m => m.genero === 'drama');
-        },
-        error: (err) => {
-          console.error('Error al cargar películas de drama', err);
-        }
-      });
+  private initForm(): void {
+    this.newMovieForm = this.fb.group({
+      titulo:      ['', [Validators.required, Validators.maxLength(100)]],
+      genero:      ['drama', Validators.required],
+      anio:        [new Date().getFullYear(), [Validators.required, Validators.min(1900)]],
+      descripcion: ['', [Validators.required, Validators.maxLength(400)]],
+      precio:      [0,  [Validators.required, Validators.min(0)]],
+      descuento:   [0,  [Validators.min(0), Validators.max(100)]],
+      imagen:      ['', Validators.required],
+    });
   }
 
-  /**
-   * Calcula el precio final aplicando el descuento.
-   * @param p Película
-   * @returns Precio con descuento redondeado
-   */
+  private async loadMovies(): Promise<void> {
+    this.loading = true;
+    try {
+      const all = await this.supabaseService.getPeliculas();
+      this.dramaMovies = all.filter(m => m.genero.toLowerCase() === 'drama');
+    } catch {
+      this.errorMessage = 'Error cargando películas';
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  openDialog(): void {
+    this.isEditMode = false;
+    this.selectedMovieId = undefined;
+    this.newMovieForm.reset({
+      genero: 'drama',
+      anio: new Date().getFullYear(),
+      descuento: 0
+    });
+    this.addModalOpen = true;
+  }
+
+  closeDialog(): void {
+    this.addModalOpen = false;
+  }
+
+  editarPelicula(p: Pelicula): void {
+    this.isEditMode = true;
+    this.selectedMovieId = p.id;
+    this.newMovieForm.patchValue({
+      titulo:      p.titulo,
+      genero:      p.genero,
+      anio:        p.anio,
+      descripcion: p.descripcion,
+      precio:      p.precio,
+      descuento:   p.descuento,
+      imagen:      p.imagen
+    });
+    this.addModalOpen = true;
+  }
+
+  async guardarPelicula(): Promise<void> {
+    if (this.newMovieForm.invalid) return;
+    this.submitting = true;
+
+    try {
+      const payload = this.newMovieForm.value;
+      if (this.isEditMode && this.selectedMovieId != null) {
+        await this.supabaseService.updatePelicula(this.selectedMovieId, payload);
+      } else {
+        await this.supabaseService.createPelicula(payload);
+      }
+      await this.loadMovies();
+      this.closeDialog();
+    } catch {
+      alert('Error al guardar la película');
+    } finally {
+      this.submitting = false;
+    }
+  }
+
+// Al hacer click en el ícono de basura:
+eliminarPelicula(p: Pelicula): void {
+  this.movieToDelete = p;
+  this.showDeleteConfirm = true;
+}
+
+// Si el usuario cancela:
+cancelDelete(): void {
+  this.showDeleteConfirm = false;
+  this.movieToDelete = undefined;
+}
+
+// Si confirma:
+async confirmDelete(): Promise<void> {
+  if (!this.movieToDelete) return;
+  try {
+    await this.supabaseService.deletePelicula(this.movieToDelete.id!);
+    await this.loadMovies();
+  } catch (err) {
+    console.error('Error al eliminar película:', err);
+    alert('No se pudo eliminar la película.');
+  } finally {
+    this.cancelDelete();
+  }
+}
+
+  agregarAlCarrito(p: Pelicula): void {
+    this.cartService.agregarAlCarrito(p.titulo, this.precioFinal(p));
+  }
+
   precioFinal(p: Pelicula): number {
     return p.descuento > 0
       ? Math.round(p.precio * (1 - p.descuento / 100))
       : p.precio;
-  }
-
-  /**
-   * Añade la película al carrito usando el servicio correspondiente.
-   * @param p Película a agregar
-   */
-  agregarAlCarrito(p: Pelicula): void {
-    const precio = this.precioFinal(p);
-    this.cartService.agregarAlCarrito(p.titulo, precio);
   }
 }

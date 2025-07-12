@@ -1,94 +1,165 @@
 // src/app/pages/terror/terror.component.ts
 
-import { Component, OnInit }            from '@angular/core';
-import { CommonModule }                 from '@angular/common';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { CartService }                  from '../../services/cart.services';
-import { AuthService, Sesion }          from '../../services/auth.services';
-import { environment }                  from '../../../environments/environment';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators
+} from '@angular/forms';
+import { CartService } from '../../services/cart.services';
+import { AuthService, Sesion } from '../../services/auth.services';
+import { SupabaseService, Pelicula } from '../../services/supabase.services';
 
-/**
- * Modelo que define la estructura de una película.
- */
-export interface Pelicula {
-  id: number;
-  genero: string;
-  titulo: string;
-  anio: number;
-  descripcion: string;
-  precio: number;
-  descuento: number;
-  imagen: string;
-}
-
-/**
- * Componente que muestra un catálogo de películas del género Terror,
- * obtenidas desde una API JSON alojada en GitHub Pages.
- */
 @Component({
   selector: 'app-terror',
   standalone: true,
-  imports: [ CommonModule, HttpClientModule ],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './terror.component.html',
 })
 export class TerrorComponent implements OnInit {
-  /** Películas de terror filtradas */
   terrorMovies: Pelicula[] = [];
-
-  /** Sólo clientes pueden ver precios y comprar */
   isClient = false;
+  isAdmin = false;
+  loading = false;
+  errorMessage = '';
 
-  /** Estados de UI */
-  loading = true;
-  errorMsg: string | null = null;
+  // Confirm delete
+  showDeleteConfirm = false;
+  movieToDelete?: Pelicula;
+
+  // Modal state
+  addModalOpen = false;
+  isEditMode = false;
+  selectedMovieId?: number;
+
+  newMovieForm!: FormGroup;
+  submitting = false;
 
   constructor(
-    private http: HttpClient,
+    private supabaseService: SupabaseService,
     private cartService: CartService,
-    private auth: AuthService
+    private auth: AuthService,
+    private fb: FormBuilder
   ) {}
 
-  /**
-   * Al iniciar, carga los datos y chequea el rol.
-   */
   ngOnInit(): void {
+    this.initForm();
     this.loadMovies();
-    this.auth.sesion$.subscribe((sesion: Sesion | null) => {
-      this.isClient = sesion?.rol === 'cliente';
+    this.auth.sesion$.subscribe((s: Sesion | null) => {
+      this.isClient = s?.rol === 'cliente';
+      this.isAdmin = s?.rol === 'admin';
     });
   }
 
-  /**
-   * Llama a la API, filtra por genero 'terror' y maneja loading/error.
-   */
-  private loadMovies(): void {
-    this.http.get<Pelicula[]>(environment.apiBase).subscribe({
-      next: all => {
-        this.terrorMovies = all.filter(m => m.genero === 'terror');
-        this.loading = false;
-      },
-      error: err => {
-        console.error('Error cargando películas de terror', err);
-        this.errorMsg = 'No se pudieron cargar las películas.';
-        this.loading = false;
+  private initForm(): void {
+    this.newMovieForm = this.fb.group({
+      titulo:      ['', [Validators.required, Validators.maxLength(100)]],
+      genero:      ['terror', Validators.required],
+      anio:        [new Date().getFullYear(), [Validators.required, Validators.min(1900)]],
+      descripcion: ['', [Validators.required, Validators.maxLength(400)]],
+      precio:      [0,  [Validators.required, Validators.min(0)]],
+      descuento:   [0,  [Validators.min(0), Validators.max(100)]],
+      imagen:      ['', Validators.required],
+    });
+  }
+
+  private async loadMovies(): Promise<void> {
+    this.loading = true;
+    this.errorMessage = '';
+    try {
+      this.terrorMovies =
+        await this.supabaseService.getPeliculasByGenero('terror');
+    } catch (err) {
+      console.error('Error cargando terror:', err);
+      this.errorMessage = 'No se pudieron cargar las películas de terror.';
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  openDialog(): void {
+    this.isEditMode = false;
+    this.selectedMovieId = undefined;
+    this.newMovieForm.reset({
+      genero: 'terror',
+      anio: new Date().getFullYear(),
+      descuento: 0
+    });
+    this.addModalOpen = true;
+  }
+
+  closeDialog(): void {
+    this.addModalOpen = false;
+  }
+
+  editarPelicula(p: Pelicula): void {
+    this.isEditMode = true;
+    this.selectedMovieId = p.id;
+    this.newMovieForm.patchValue({
+      titulo:      p.titulo,
+      genero:      p.genero,
+      anio:        p.anio,
+      descripcion: p.descripcion,
+      precio:      p.precio,
+      descuento:   p.descuento,
+      imagen:      p.imagen
+    });
+    this.addModalOpen = true;
+  }
+
+  async guardarPelicula(): Promise<void> {
+    if (this.newMovieForm.invalid) return;
+    this.submitting = true;
+    try {
+      const payload = this.newMovieForm.value;
+      if (this.isEditMode && this.selectedMovieId != null) {
+        await this.supabaseService.updatePelicula(this.selectedMovieId, payload);
+      } else {
+        await this.supabaseService.createPelicula(payload);
       }
-    });
+      await this.loadMovies();
+      this.closeDialog();
+    } catch (err) {
+      console.error('Error al guardar película:', err);
+      alert('No se pudo guardar la película.');
+    } finally {
+      this.submitting = false;
+    }
   }
 
-  /**
-   * Calcula precio final con descuento aplicado.
-   */
+  eliminarPelicula(p: Pelicula): void {
+    this.movieToDelete = p;
+    this.showDeleteConfirm = true;
+  }
+
+  cancelDelete(): void {
+    this.showDeleteConfirm = false;
+    this.movieToDelete = undefined;
+  }
+
+  async confirmDelete(): Promise<void> {
+    if (!this.movieToDelete) return;
+    try {
+      await this.supabaseService.deletePelicula(this.movieToDelete.id!);
+      await this.loadMovies();
+    } catch (err) {
+      console.error('Error al eliminar película:', err);
+      alert('No se pudo eliminar la película.');
+    } finally {
+      this.cancelDelete();
+    }
+  }
+
+  agregarAlCarrito(p: Pelicula): void {
+    const precio = this.precioFinal(p);
+    this.cartService.agregarAlCarrito(p.titulo, precio);
+  }
+
   precioFinal(p: Pelicula): number {
     return p.descuento > 0
       ? Math.round(p.precio * (1 - p.descuento / 100))
       : p.precio;
-  }
-
-  /**
-   * Agrega la película al carrito.
-   */
-  agregarAlCarrito(p: Pelicula): void {
-    const precio = this.precioFinal(p);
-    this.cartService.agregarAlCarrito(p.titulo, precio);
   }
 }
