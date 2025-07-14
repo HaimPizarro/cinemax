@@ -25,7 +25,6 @@ export class SupabaseService {
   }
 
   // CRUD Operations
-
   async getPeliculas(): Promise<Pelicula[]> {
     const { data, error } = await this.supabase
       .from('peliculas')
